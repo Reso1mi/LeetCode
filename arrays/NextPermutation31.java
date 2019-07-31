@@ -14,7 +14,7 @@ public class NextPermutation31{
 		
 		for (int i=len-2;i>=0;i--) {
 			while(i>=0 &&nums[i]>=nums[i+1]){
-     			//找到峰值左边的第一个
+     			//从右向左找到峰值左边的第一个
 				i--;
 			}
      		//逆序的, 没有最大值

@@ -22,7 +22,7 @@ public class Rob198{
         return dp[i-1];
     }
 
-    // Max[i]=max(x+);  
+    // Max[i]=max(pre+nums[i],cur);  
     public int rob(int[] nums) {
         if(nums==null||nums.length<=0){
             return 0;

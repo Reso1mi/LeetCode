@@ -42,6 +42,7 @@ public class UniquePaths62{
         return dp[n-1]; //最后一行最后一个dp值就是结果
     }
 
+    //组合数公式
     public static int uniquePaths3(int m, int n) {
         if(m<0||n<0){
             return 0;

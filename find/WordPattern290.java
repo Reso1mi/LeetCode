@@ -1,5 +1,5 @@
 import java.util.*;
-public class WordPattern209{
+public class WordPattern290{
     public static void main(String[] args) {
         
     }
@@ -12,7 +12,7 @@ public class WordPattern209{
         if (strs.length!=p.length) {
             return false;
         }
-        for (int i=0;i<strs.length;i++) {
+        for (int i=0;i<p.length;i++) {
             if (map.containsKey(p[i])) {
                 if (!map.get(p[i]).equals(strs[i])) {
                     return false;

@@ -1,10 +1,11 @@
 import java.util.*;
-public class LengthOfLongestSubstring{
+public class LengthOfLongestSubstring3{
 
     public static void main(String[] args) {
-        String s="adadasdsadddd";
-
-        System.out.println("----"+lengthOfLongestSubstring5(s));
+        String s2="adadasdsadddd";
+        String s3="abba";
+        String s="tmmzuxt";
+        System.out.println("----"+lengthOfLongestSubstring6(s));
     }
 
     public static int lengthOfLongestSubstring(String s) {
@@ -115,7 +116,7 @@ public int lengthOfLongestSubstring3(String s) {
     public static int lengthOfLongestSubstring5(String s) {
         int length=s.length();
         if(length==0) return 0;
-            //ASCII码表
+        //ASCII码表
         int[] freq=new int[256]; 
         freq[s.charAt(0)]=1;
         int head=0,tail=0;
@@ -131,5 +132,29 @@ public int lengthOfLongestSubstring3(String s) {
             max=max<tail-head+1?tail-head+1:max;
         }
         return max;
+    }
+    
+    public static int lengthOfLongestSubstring6(String s) {
+        if(s==null||s.length()<1) return 0;
+        if(s.length()==1) return 1;
+        int[] freq=new int[256];
+        int left=0,right=0,res=0;
+        Arrays.fill(freq,-1);
+        while(right<s.length()){
+            char sr=s.charAt(right);
+            //已经存在,并且在窗口内
+            if(freq[sr]!=-1 && freq[sr]>=left){
+                //System.out.println(left+","+right+","+freq[sr]);
+                res=Math.max(res,right-left);
+                left=freq[sr]+1;
+                freq[sr]=right;
+            }else{
+                res=Math.max(res,right-left+1);
+                freq[sr]=right;
+            }
+            
+            right++;
+        }
+        return res;
     }
 }

@@ -1,7 +1,8 @@
+import java.util.*;
 public class ContainsNearbyDuplicate219{
 	public static void main(String[] args) {
-		int []nums={1,1};
-		System.out.println(containsNearbyDuplicate2(nums,2));
+		int []nums={1,2,3,1,2,3};
+		System.out.println(containsNearbyDuplicate4(nums,2));
 	}
 
 	public static boolean containsNearbyDuplicate(int[] nums, int k) {
@@ -62,6 +63,25 @@ public class ContainsNearbyDuplicate219{
 			}else {
 				map.put(nums[i],i);
 			}
+		}
+		return false;
+	}
+
+	public static boolean containsNearbyDuplicate4(int[] nums, int k) {
+		HashMap<Integer,Integer> hashMap=new HashMap<>();
+		int left=0,right=0;
+		while(right<nums.length){
+			if(hashMap.containsKey(nums[right])){
+				//md,重新做的时候这里减反了真是个zz
+				if(right-hashMap.get(nums[right])<=k){
+					return true;
+				} else{
+					hashMap.put(nums[right],right);
+				}
+			}else{
+				hashMap.put(nums[right],right);
+			}
+			right++;
 		}
 		return false;
 	}

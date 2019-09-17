@@ -19,7 +19,7 @@ public class SimplifyPath71{
                 stack.push(s[i]);
             }
         }
-        if (stack.isEmpty) {
+        if (stack.isEmpty()) {
             return "/";
         }
         StringBuilder res=new StringBuilder();

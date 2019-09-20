@@ -133,6 +133,28 @@ public int lengthOfLongestSubstring3(String s) {
         }
         return max;
     }
+
+    //用boolean数组
+    public static int lengthOfLongestSubstring8(String s) {
+        int length=s.length();
+        if(length==0) return 0;
+        //ASCII码表
+        boolean[] freq=new boolean[256]; 
+        freq[s.charAt(0)]=true;
+        int head=0,tail=0;
+        int max=1;
+        while(head<length){
+            if(tail+1<length&&!freq[s.charAt(tail+1)]){
+                tail++;
+                freq[s.charAt(tail)]=true;
+            }else{
+                freq[s.charAt(head)]=false;
+                head++;
+            }
+            max=max<tail-head+1?tail-head+1:max;
+        }
+        return max;
+    }
     
     public static int lengthOfLongestSubstring6(String s) {
         if(s==null||s.length()<1) return 0;
@@ -153,6 +175,33 @@ public int lengthOfLongestSubstring3(String s) {
                 freq[sr]=right;
             }
             
+            right++;
+        }
+        return res;
+    }
+
+
+    public static int lengthOfLongestSubstring7(String s) {
+        if(s==null||s.length()<1) return 0;
+        if(s.length()==1) return 1;
+        int[] freq=new int[256];
+        int left=0,right=0,res=0;
+        //Arrays.fill(freq,-1);
+        while(right<s.length()){
+            char sr=s.charAt(right);
+            //已经存在(出现过),并且上一次出现在窗口内
+            if(freq[sr]!=0 && freq[sr]>=left){
+                //这里不包含right,所以不用加1
+                res=Math.max(res,right-left);
+                //left移动到重复位置元素的下一个
+                //因为freq的值是存的索引+1所以这里不用+1
+                left=freq[sr];
+            }else{
+                //这里包含right所以需要加1
+                res=Math.max(res,right-left+1);
+            }
+            //加1是为了区别s的第一个字符
+            freq[sr]=right+1;
             right++;
         }
         return res;

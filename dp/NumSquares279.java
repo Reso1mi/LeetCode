@@ -27,11 +27,43 @@ public class  NumSquares279{
         int[] dp=new int[n+1];
         dp[0]=0;
         for (int i=1;i<=n;i++) {
-            dp[i]=Integer.MAX_VALUE; //dp[i]初始化
+            dp[i]=i; //dp[i]初始化,最坏解就是i,只能分解为1的平方的和
             for (int j=1;i>=j*j;++j){
                 dp[i]=Math.min(dp[i],dp[i-j*j]+1);
             }
         }
         return dp[n];
+    }
+
+    public static int numSquares2(int n) {
+        Queue<Pair> queue=new LinkedList<>();
+        boolean[] visit=new boolean[n+1];
+        queue.add(new Pair(n,0));
+        visit[n]=true;
+        while(!queue.isEmpty()){
+            Pair pair=queue.poll();
+            int num=pair.num;
+            int step=pair.step;
+            if (num==0) {
+                return step;
+            }
+            for (int i=1;i*i<=num;i++) {
+                int temp=num-i*i;
+                if (!visit[temp]) {
+                    queue.add(new Pair(temp,step+1));
+                    visit[temp]=true;
+                }
+            }
+        }
+        return -1;
+    }
+
+    static class Pair{
+        public int step;
+        public int num;
+        public Pair(int num,int step){
+            this.num=num;
+            this.step=step;
+        }
     }
 }

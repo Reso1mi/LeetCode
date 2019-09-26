@@ -28,7 +28,6 @@ public class LengthOfLongestSubstring3{
                     list[++tail]=i;
                     break;
                 }
-
                 //从尾遍历到头仍然没有相等，可以添加到队列中
                 if(index==list[head]-1){
                     list[++tail]=i;
@@ -65,18 +64,18 @@ public class LengthOfLongestSubstring3{
     return length;
 }
 
-public int lengthOfLongestSubstring3(String s) {
-    int n = s.length(), ans = 0;
+    public int lengthOfLongestSubstring3(String s) {
+        int n = s.length(), ans = 0;
         //索引为元素值，这里因为元素都是字符转过来就是askll码，所以可以直接这样
-    int[] index = new int[128]; 
-    for (int j = 0, i = 0; j < n; j++) {
+        int[] index = new int[128]; 
+        for (int j = 0, i = 0; j < n; j++) {
             //如果字符 char 在没有出现过，index[char]为0，出现则index[char]是遍历出现的最后的char的位置
             //i是当前字符上一次出现的位置
-        i = Math.max(i,index[s.charAt(j)]);
+            i = Math.max(i,index[s.charAt(j)]);
             //i= index[s.charAt(j)]==0?0:index[s.charAt(j)];
             //j - i + 1 就是舍弃s.charAt(j)重复出现之前字符的长度  如abca,当s.charAt(j) == a时，j - i + 1就是bca的长度
             //如果字符没有重复出现过，则ans等于j+1,出现过则是ans，j-i+1的最大值
-        ans = Math.max(ans, j - i + 1);
+            ans = Math.max(ans, j - i + 1);
             index[s.charAt(j)] = j + 1;//+1是为了区分第一个字符j = 0,和数组默认值0
         }
         return ans; 

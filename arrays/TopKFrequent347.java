@@ -46,7 +46,7 @@ public class TopKFrequent347{
             fre.put(nums[i],fre.getOrDefault(nums[i],0)+1);
         }
         //1:3,2:3,3:1
-        PriorityQueue<HashMap.Entry<Integer,Integer>> pq=new PriorityQueue(new ComparatorMap());
+        PriorityQueue<HashMap.Entry<Integer,Integer>> pq=new PriorityQueue<>((o1,o2)->o1.getValue()-o2.getValue());
         //维护k小根堆
         for (HashMap.Entry ent:fre.entrySet()) {
             pq.add(ent);
@@ -55,7 +55,7 @@ public class TopKFrequent347{
             }
         }
         ArrayList<Integer> res=new ArrayList<>();
-        while (pq.isEmpty()) {
+        while (!pq.isEmpty()) {
             res.add(pq.poll().getKey());
         }
         return res;

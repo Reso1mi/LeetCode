@@ -6,7 +6,7 @@ public class LadderLength127{
     
     public int ladderLength(String beginWord, String endWord, List<String> wordList){
         //visit数组
-        boolean[] visit=new boolean[wordList.size() + 1];
+        boolean[] visit=new boolean[wordList.size()];
         if (!wordList.contains(endWord)) {
             return 0;
         }

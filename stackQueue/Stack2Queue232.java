@@ -4,41 +4,41 @@ public class Stack2Queue232{
 
     }
 
-    Stack<Integer> stack1=null;
+    Stack<Integer> inStack=null;
 
-    Stack<Integer> stack2=null;
+    Stack<Integer> outStack=null;
     /** Initialize your data structure here. */
     public Stack2Queue232() {
-        stack1=new Stack<>();
-        stack2=new Stack<>();
+        inStack=new Stack<>();
+        outStack=new Stack<>();
     }
     
     /** Push element x to the back of queue. */
     public void push(int x) {
-        stack1.push(x);
+        inStack.push(x);
     }
     
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
         s2s();
-        return stack2.pop();
+        return outStack.pop();
     }
     
     /** Get the front element. */
     public int peek() {
         s2s();
-        return stack2.peek();
+        return outStack.peek();
     }
     
     /** Returns whether the queue is empty. */
     public boolean empty() {
-        return stack2.isEmpty() && stack1.isEmpty();
+        return outStack.isEmpty() && inStack.isEmpty();
     }
 
     private void s2s(){
-        if (stack2.isEmpty()) {
-            while(!stack1.isEmpty()) {
-                stack2.push(stack1.pop());
+        if (outStack.isEmpty()) {
+            while(!inStack.isEmpty()) {
+                outStack.push(inStack.pop());
             }
         }     
     }

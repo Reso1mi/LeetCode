@@ -35,40 +35,40 @@ public class Queue2Stack225{
         return queue.isEmpty();
     }
 
-/*    //形式上q1是负责进栈 q2负责出栈
-    private LinkedList queue1=new LinkedList(); 
-    private LinkedList queue2=new LinkedList();
+/*   //形式上q1是负责进栈 q2负责出栈
+    private LinkedList inQueue=new LinkedList(); 
+    private LinkedList outQueue=new LinkedList();
 
     private  void  add(Object obj){
-        queue1.add(obj);
+        inQueue.add(obj);
     }
 
     private Object pop(){
         // q1 ----> q2 留一个
-        while(queue1.size()>1){
-            queue2.add(queue1.poll());
+        while(inQueue.size()>1){
+            outQueue.add(inQueue.poll());
         }
         //交换q1,q2的引用
         LinkedList temp;
-        temp=queue1;
-        queue1=queue2;
-        queue2=temp;
-        return queue2.poll();
+        temp=inQueue;
+        inQueue=outQueue;
+        outQueue=temp;
+        return outQueue.poll();
     }
 
     private Object peek(){
         //q1 --->q2 留一个,最后一个不poll,最后poll
-        while(queue1.size()>1){
-            queue2.add(queue1.poll());
-            if(queue1.size()==1){
-                queue2.add(queue1.peek());
+        while(inQueue.size()>1){
+            outQueue.add(inQueue.poll());
+            if(inQueue.size()==1){
+                outQueue.add(inQueue.peek());
             }
         }
         //交换q1,q2的引用
         LinkedList temp;
-        temp=queue1;
-        queue1=queue2;
-        queue2=temp;
-        return queue2.poll();
+        temp=inQueue;
+        inQueue=outQueue;
+        outQueue=temp;
+        return outQueue.poll();
     }*/
 }

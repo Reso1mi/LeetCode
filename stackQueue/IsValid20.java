@@ -45,4 +45,20 @@ public class IsValid20{
         }
         return stack.isEmpty();
     }
+
+    public boolean isValid(String s) {
+        if(s.length()<=0){
+            return true;
+        }
+        while(true){
+            int len=s.length();
+            s=s.replace("{}","");
+            s=s.replace("()","");
+            s=s.replace("[]","");
+            if (len==s.length()) {
+                break;
+            }
+        }
+        return "".equals(s);
+    }
 }

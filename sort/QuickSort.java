@@ -11,7 +11,7 @@ public class QuickSort{
         if(left>=right){
             return;
         }
-        int[] mid=partition(nums,left,right);
+        int[] mid=partition2(nums,left,right);
         quickSort(nums,left,mid[0]-1);
         quickSort(nums,mid[1]+1,right);
     }
@@ -31,6 +31,25 @@ public class QuickSort{
         // (less,more]
         //right归位
         swap(nums,more+1,right);
+        return new int[]{++less,more};
+    }
+
+
+    public static int[] partition2(int []nums,int left,int right){
+        int less=left-1,more=right;
+        int i=left;
+        while(i<more){
+            if (nums[i]>nums[right]) {
+                swap(nums,--more,i);
+            }else if(nums[i]<nums[right]){
+                swap(nums,++less,i++);
+            }else{
+                i++;
+            }
+        }
+        // (less,more)
+        //right归位
+        swap(nums,more,right);
         return new int[]{++less,more};
     }
 

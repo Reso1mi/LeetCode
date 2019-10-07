@@ -10,7 +10,6 @@ public class PermuteUnique47{
         if (nums==null || nums.length<=0) {
             return res;
         }
-        
         //Arrays.sort(nums); 解法二需要先排序
         boolean[] visit=new boolean[nums.length];
         permuteUnique(nums,0,new ArrayList(),visit);
@@ -43,7 +42,7 @@ public class PermuteUnique47{
             return;
         }
         for (int i=0;i<nums.length;i++) {
-            //剪枝
+            //剪枝去重
             if (i>0&&nums[i]==nums[i-1] && visit[i-1]) 
                 continue;
             if (!visit[i]) {

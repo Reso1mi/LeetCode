@@ -16,7 +16,6 @@ public class Combine77{
 
     private List<List<Integer>> res=new ArrayList<>();
 
-
     //剪枝优化
     public void combine(int n, int k,int index,List<Integer> lis,int count) {
         if (count==k) {

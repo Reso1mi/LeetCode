@@ -88,6 +88,7 @@ public class FindKthLargest215{
 		/*for (int i=0;i<nums.length;i++){
 			heapInsert(nums,i);
 		}*/
+		//小根堆
 		int last=nums.length-1;
 		for (int i=nums.length/2-1;i>=0;i--) {
 			heapIfy(nums,i,last);

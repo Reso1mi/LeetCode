@@ -1,6 +1,7 @@
+import java.util.*;
 public class Multiply43{
     public static void main(String[] args) {
-
+        System.out.println(multiply3("100","100"));
     }
 
         /**

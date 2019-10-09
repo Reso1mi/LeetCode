@@ -14,7 +14,7 @@ public class SpiralOrder54{
         int [][] nums3={{1,2,3,4,5},{6,7,8,9,10}};
         //[[1,11],[2,12],[3,13],[4,14],[5,15],[6,16],[7,17],[8,18],[9,19],[10,20]]
         int [][] nums4={{1,11},{2,12},{3,13},{4,14},{5,15},{6,16},{7,17},{8,18},{9,19},{10,20}};
-        System.out.println(spiralOrder2(nums3));
+        System.out.println(spiralOrder2(nums));
     }
 
 
@@ -74,16 +74,17 @@ public class SpiralOrder54{
                 }
                 return res;
             }else{
+                
                 while(tlb<rb){
-                    res.add(matrix[la][tlb++]);
+                    res.add(matrix[tla][tlb++]);
                 }
                 //System.out.println(rb+","+tlb);
                 while(tla<ra){
                     res.add(matrix[tla++][tlb]);
                 }
-                
+
                 while(trb>lb){
-                    res.add(matrix[ra][trb--]);
+                    res.add(matrix[tra][trb--]);
                 }
 
                 while(tra>la){

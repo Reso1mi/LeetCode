@@ -2,9 +2,9 @@ public class SurroundedRegions130{
     public static void main(String[] args) {
         SurroundedRegions130 s=new SurroundedRegions130();
         char[][] board={{'X','X','X','X'},
-                        {'X','O','O','X'},
-                        {'X','O','O','X'},
-                        {'X','O','X','X'}};
+        {'X','O','O','X'},
+        {'X','O','O','X'},
+        {'X','O','X','X'}};
 
         s.solve(board);
         for (int i=0;i<board.length;i++) {
@@ -26,31 +26,21 @@ public class SurroundedRegions130{
         int lx=0,ly=0;
 
         //遍历4条边的'O',将与相连的'O'都标记为true
-        while(lx<board.length) { //左
-            if (board[lx][0]=='O') {
+        while(lx<board.length) { 
+            if (board[lx][0]=='O') { //左
                 dfs(board,lx,0,visit);
             }
-            lx++;
-        }
-
-        lx=0;
-        while(lx<board.length) { //右
-            if (board[lx][board[0].length-1] == 'O') {
+            if (board[lx][board[0].length-1] == 'O') { //右
                 dfs(board,lx,board[0].length-1,visit);
             }
             lx++;
         }
 
-        while(ly<board[0].length) { //上
-            if (board[0][ly]=='O') {
+        while(ly<board[0].length) { 
+            if (board[0][ly]=='O') { //上
                 dfs(board,0,ly,visit);
             }
-            ly++;
-        }
-
-        ly=0;
-        while(ly<board[0].length) { //下
-            if (board[board.length-1][ly] == 'O') {
+            if (board[board.length-1][ly] == 'O') { //下
                 dfs(board,board.length-1,ly,visit);   
             }
             ly++;

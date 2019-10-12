@@ -28,6 +28,45 @@ public class BinaryTreePaths257{
         return res;
     }
 
+    List<String> res=new ArrayList<>();
+
+    //DFS 回溯
+    public List<String> binaryTreePaths(TreeNode root) {
+        if (root==null) {
+            return res;
+        }
+        dfs(root,new ArrayList());
+        return res;
+    }
+
+    public void dfs(TreeNode root,List<Integer> lis) {
+        if (root==null) {
+            return;
+        }
+        lis.add(root.val);
+        if (root!=null && root.left==null && root.right==null) {
+            res.add(buildPath(lis));
+        }else{
+            dfs(root.left,lis);
+            dfs(root.right,lis);
+        }
+        //回溯
+        lis.remove(lis.size()-1);
+    }
+
+    private String buildPath(List<Integer> values) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            str.append(values.get(i));
+            if (i != values.size() - 1) {
+                str.append("->");
+            }
+        }
+        return str.toString();
+    }
+
+
+
     //BFS
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res=new ArrayList<>();

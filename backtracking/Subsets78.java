@@ -44,4 +44,16 @@ public class Subsets78{
         }
         return queue;
     }
+
+    //位运算
+    public List<List<Integer>> subsets3(int[] nums) {
+        // 1<<3 = 8
+        int n=1<<nums.length;
+        for (int i=0;i<n;i++) {
+            for (; ; ) {
+                   
+            }   
+        }
+        return queue;
+    }
 }

@@ -1,6 +1,51 @@
 public class Rob198{
     public static void main(String[] args) {
-        System.out.println(Math.max(1,4));
+        System.out.println();
+    }
+
+    //递归
+/*    public int rob(int[] nums) {
+        if(nums==null||nums.length<=0){
+            return 0;
+        }
+        if (nums.length==2) {
+            return Math.max(nums[0],nums[1]);
+        }
+        return rob(nums,nums.length-1);
+    }
+
+    public int rob(int[] nums,int index) {
+        if (index==0 || index==1) {
+            return nums[index];
+        }
+        //过了80%的case了,但是还是有问题
+        //这里的递归结构是有问题的,比如 2 1 1 2会得到结果3
+        //主要是上面的递归出口会提前返回。。。。这里确实不知道咋处理了
+        //比如这里最后一个2，max第二个参数会在index=1的时候直接返回1
+        return Math.max(nums[index]+rob(nums,index-2),rob(nums,index-1));
+    }*/
+
+    public int rob(int[] nums) {
+        if(nums==null||nums.length<=0){
+            return 0;
+        }
+        if (nums.length==2) {
+            return Math.max(nums[0],nums[1]);
+        }
+        return rob(nums,0);
+    }
+
+    //rob的定义为抢劫[index,nums.length-1]范围内的所有房子
+    public int rob(int[] nums,int index) {
+        if (index>=nums.length) {
+            return 0;
+        }
+        int res=0
+        //2 1 1 2
+        for (int i=0;i<nums.length;i++) {
+            res=Math.max(res,rob(nums,i+2)+nums[i]);
+        }
+        return res;
     }
 
     //  Max[i]=max(nums[i-2]+nums[i],nums[i-1])

@@ -15,6 +15,7 @@ public class Rob198{
     }
 
     public int rob(int[] nums,int index) {
+        //问题就在这里,这里会提前返回
         if (index==0 || index==1) {
             return nums[index];
         }
@@ -25,7 +26,12 @@ public class Rob198{
         return Math.max(nums[index]+rob(nums,index-2),rob(nums,index-1));
     }*/
 
+
+    //记忆化递归
+    private Integer[] cache=null;
+
     public int rob(int[] nums) {
+        cache=new Integer[nums.length];
         if(nums==null||nums.length<=0){
             return 0;
         }
@@ -40,11 +46,16 @@ public class Rob198{
         if (index>=nums.length) {
             return 0;
         }
-        int res=0
+        if (cache[index]!=null) {
+            return cache[index];
+        }
+        int res=0;
         //2 1 1 2
-        for (int i=0;i<nums.length;i++) {
+        //这个递归说实话没看懂
+        for (int i=index;i<nums.length;i++) {
             res=Math.max(res,rob(nums,i+2)+nums[i]);
         }
+        cache[index]=res;
         return res;
     }
 

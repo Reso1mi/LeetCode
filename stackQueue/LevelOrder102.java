@@ -29,4 +29,35 @@ public class LevelOrder102{
         }
         return res;
     }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res=new ArrayList<>();
+        if (root ==null) {
+            return res;
+        }
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.add(root);
+        res.add(Arrays.asList(root.val));
+        while(!queue.isEmpty()){
+            int count=queue.size();
+            ArrayList<Integer> lis=new ArrayList<>();
+            while(count>0){
+                TreeNode node=queue.poll();
+                if (node.left!=null) {
+                    queue.add(node.left);
+                    lis.add(node.left.val);
+                }
+
+                if (node.right!=null) {
+                    queue.add(node.right);
+                    lis.add(node.right.val);
+                }
+                count--;
+            }
+            if (!lis.isEmpty()) {
+                res.add(lis);   
+            }            
+        }
+        return res;
+    }
 }

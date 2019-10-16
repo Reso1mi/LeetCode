@@ -2,15 +2,17 @@ public class IsSymmetric101{
     public static void main(String[] args) {
 
     }
-    // 1 2 3
+
+    //dfs 递归解法
     public boolean isSymmetric(TreeNode root) {
         if (root ==null) {
             return true;
         }
-        return isSymmetric(root,root);
+        //转换为求左右子树是否镜像对称的问题
+        return isSymmetric(root.left,root.right);
+        //return isSymmetric(root,root);
     }
 
-    //dfs
     public boolean isSymmetric(TreeNode t1,TreeNode t2) {
         if (t1==null && t2==null) {
             return true;
@@ -24,6 +26,33 @@ public class IsSymmetric101{
     }
 
 
+    //非递归解法
+    public boolean isSymmetric(TreeNode root) {
+        if (root ==null) {
+            return true;
+        }
+        Stack<TreeNode> stack=new Stack<>();
+        stack.push(root.left);
+        stack.push(root.right);
+        while(!stack.isEmpty()){
+            TreeNode t1=stack.pop();
+            TreeNode t2=stack.pop();
+            if (t1==null && t2==null) {
+                continue;
+            }
+            if (t1==null||t2==null || t1.val!=t2.val) {
+                return false;
+            }
+            /*if (t1.val!=t2.val) {
+                return false;
+            }*/
+            stack.push(t1.left);
+            stack.push(t2.right);
+            stack.push(t1.right);
+            stack.push(t2.left);
+        }
+        return true;
+    }    
 
 
     //[1,2,2,2,null,2] 忘了还有这样的case了,哭了
@@ -54,8 +83,10 @@ public class IsSymmetric101{
         }
     }
 
-    //前序遍历
-    public List<Integer> preTravle(TreeNode node){
+
+
+    //前序遍历,这样写不好判断层数
+/*    public List<Integer> preTravle(TreeNode node){
         Stack<TreeNode> stack=new Stack<>();
         TreeNode cur=node;
         List<Integer> res=new ArrayList<>();
@@ -67,15 +98,14 @@ public class IsSymmetric101{
             //没有左子树了
             cur=stack.pop();
             res.add(cur.val);
-            res.add(cur.val);
             cur=cur.right;
         }
         return res;
-    }
+    }*/
 
 
     //BFS
-/*    public boolean isSymmetric(TreeNode root) {
+    public boolean isSymmetric(TreeNode root) {
         if (root ==null) {
             return true;
         }
@@ -86,12 +116,18 @@ public class IsSymmetric101{
             ArrayList<Integer> lis=new ArrayList<>();
             while(count>0){
                 TreeNode node=queue.poll();
-                lis.add(node.val);
                 if (node.left!=null) {
                     queue.add(node.left);
+                    lis.add(node.left.val);
+                }else{
+                    lis.add(-1);
                 }
+
                 if (node.right!=null) {
                     queue.add(node.right);
+                    lis.add(node.right.val);
+                }else{
+                    lis.add(-1);
                 }
                 count--;
             }
@@ -103,5 +139,5 @@ public class IsSymmetric101{
             }
         }
         return true;
-    }*/
+    }
 }

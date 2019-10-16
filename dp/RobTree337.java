@@ -41,14 +41,14 @@ public class RobTree337{
         //偷取当前节点
         int res=root.val;
         if (root.left!=null) {
-            res+=rob(root.left.left)+rob(root.left.right);
+            res+=tryRob(root.left.left)+tryRob(root.left.right);
         }
         if (root.right!=null) {
-            res+=rob(root.right.left)+rob(root.right.right);
+            res+=tryRob(root.right.left)+tryRob(root.right.right);
         }
         //不偷当前节点
         int res2=0;
-        res2=rob(root.left)+rob(root.right);
+        res2=tryRob(root.left)+tryRob(root.right);
         return Math.max(res,res2);
     }
 }

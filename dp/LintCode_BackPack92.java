@@ -75,7 +75,21 @@ public class LintCode_BackPack92{
         }
         return dp[m];
     }
-
+    
+/*    828,125,740,724,983,321,773,
+    678,841,842,875,377,123,144,
+    340,467,625,916,463,922,255,
+    662,692,143,778,766,254,559,
+    480,483,904,60,305,966,872,
+    935,626,691,832,998,508,657,
+    215,162,858,179,869,675,453,
+    158,520,138,847,452,764,995,
+    600,568,92,496,533,404,186,
+    345,304,420,181,73,547,281,
+    374,376,454,438,553,929,140,
+    298,451,674,91,531,685,862,
+    446,262,477,573,627,624,814,
+    103,294,388*/
 
 
     //用Integer[][],空间会超。。。lintCode好严格
@@ -108,6 +122,26 @@ public class LintCode_BackPack92{
         int res=putPack(m,A,index-1);
         if (A[index]<=m) {
             res=Math.max(res,A[index]+putPack(m-A[index],A,index-1));
+        }
+        cache[index][m]=res;
+        return res;
+    }
+
+    //方向不同罢了。。。。
+    public int putPack(int m,int[] A,int index) {
+        //index==0的时候不应该返回=0代表第一个,是可以装的
+        //对于m也是一样, 这种边界思考一下m就等于0和index就等于0这种特例就可以
+        //只要这种特例是正确的那么整个递归就是正确的,并不需要去思考整个递归的结束条件
+        if (index>=A.length || m<=0) {
+            return 0;
+        }
+        if (cache[index][m]!=-1) {
+            return cache[index][m];
+        }
+        //不选index位置的元素
+        int res=putPack(m,A,index+1);
+        if (A[index]<=m) {
+            res=Math.max(res,A[index]+putPack(m-A[index],A,index+1));
         }
         cache[index][m]=res;
         return res;

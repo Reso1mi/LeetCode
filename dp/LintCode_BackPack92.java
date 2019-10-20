@@ -30,7 +30,7 @@ public class LintCode_BackPack92{
         return dp[A.length-1][m];
     }
 
-    //一唯动态规划（Wrong）
+    //一唯动态规划（Wrong Answer）
     public int backPack3(int m,int[] A) {
         if (A==null || A.length<=0) {
             return 0;

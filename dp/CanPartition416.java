@@ -86,7 +86,8 @@ public class CanPartition416{
         if (half==sum) {
             return true;
         }
-        cache[index][half]=partition(nums,index+1,half,sum) || (half<sum&&partition(nums,index+1,half+nums[index],sum));
+        cache[index][half]=partition(nums,index+1,half,sum) || 
+            (half<sum&&partition(nums,index+1,half+nums[index],sum));
         return cache[index][half];
     }
 }

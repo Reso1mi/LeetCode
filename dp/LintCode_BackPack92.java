@@ -118,13 +118,12 @@ public class LintCode_BackPack92{
         if (cache[index][m]!=-1) {
             return cache[index][m];
         }
-        //不选index位置的元素
-        int res=putPack(m,A,index-1);
+        //选index位置的元素,然后求个最大值
         if (A[index]<=m) {
-            res=Math.max(res,A[index]+putPack(m-A[index],A,index-1));
+            return cache[index][m]=Math.max(putPack(m,A,index-1),A[index]+putPack(m-A[index],A,index-1));
         }
-        cache[index][m]=res;
-        return res;
+        //不选index位置的元素
+        return cache[index][m]=putPack(m,A,index-1);
     }
 
     //方向不同罢了。。。。

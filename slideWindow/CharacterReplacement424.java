@@ -3,7 +3,7 @@ public class CharacterReplacement424{
         
     }
 
-    public int characterReplacement(String s, int k) {
+/*    public int characterReplacement(String s, int k) {
         int[] freq=new int[256];
         int l=0,r=0;
         int replace=0;
@@ -20,23 +20,24 @@ public class CharacterReplacement424{
                 }
             }
         }
-    }
+        return res;
+    }*/
 
     public int characterReplacement(String s, int k) {
-        int max = 0, start = 0, end = 0, cur = -1;
+        int max = 0, left = 0, right = 0, cur = -1;
         int[] count = new int[256];
-        while (end < s.length()) {
-            //当前窗口出现最多的字符
-            cur = Math.max(cur, ++count[s.charAt(end)]);
+        while (right < s.length()) {
+            //当前窗口出现最多的字符出现次数
+            cur = Math.max(cur, ++count[s.charAt(right)]);
             //不能替换了,不同字符太多了
-            while (end - start + 1 - cur > k){
+            while (right - left + 1 - cur > k){
                 //缩减左边界
-                count[s.charAt(start)]--;
-                start++;//不能替换了，start++
+                count[s.charAt(left)]--;
+                left++;//不能替换了，left++
             }
             //统计最大值
-            max = Math.max(max, end - start + 1);
-            end++;
+            max = Math.max(max, right - left + 1);
+            right++;
         }
         return max;
     }

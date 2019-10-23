@@ -4,7 +4,7 @@ public class BalancedString1234{
     }
 
     public int balancedString(String s) {
-        if (s=null|| s.length()<=0) {
+        if (s==null|| s.length()<=0) {
             return 0;
         }
         int len=s.length();
@@ -16,16 +16,15 @@ public class BalancedString1234{
             count[s.charAt(i)]++;
         }
         int left=0,right=0,res=len;
-        for(int i=0;i<len;i++){
-            left=i;
-            while(left<len){
-                count[s.charAt(right)]--;
-                if (count['Q']<=balance && count['W']<=balance && count['E'] <=balance && count['R']<=balance) {
-                    ++right;
-                    res=Math.min(res,right-left);
-                }
+        while(right<len){
+            count[s.charAt(right)]--;
+            while(left<len && count['Q']<=balance && count['W']<=balance && count['E'] <=balance && count['R']<=balance){
+                res=Math.min(res, right-left+1);
+                count[s.charAt(left)]++;
                 left++;
             }
+            right++;
         }
+        return res;
     }
 }

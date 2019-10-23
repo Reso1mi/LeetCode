@@ -5,25 +5,10 @@ public class Main10_20{
     }
 
     public boolean checkStraightLine(int[][] coordinates) {
-        HashSet<String> set=new HashSet<>();
-        String slope=null;
-        for (int i=0;i<coordinates.length;i++) {
-            for (int j=i;j<coordinates.length;j++) {
-                int dx=coordinates[i][0]-coordinates[j][0];
-                int dy=coordinates[i][1]-coordinates[j][1];
-                if (dx==0 && dy==0) {
-                    continue;
-                }
-                int g=gcd(dx,dy);
-                if (g!=0) {
-                    dx/=g;
-                    dy/=g;
-                }
-                if (slope==null) {
-                    slope=dx+"/"+dy;
-                }else if (!(dx+"/"+dy).equals(slope)) {
-                    return false;
-                }   
+        for (int i=2;i<coordinates.length;i++) {
+            if((coordinates[i][1]-coordinates[i-1][1])*(coordinates[i-1][0]-coordinates[i-2][0])!=
+                (coordinates[i][0]-coordinates[i-1][0])*(coordinates[i-1][1]-coordinates[i-2][1])){
+                return false;
             }
         }
         return true;
@@ -37,52 +22,32 @@ public class Main10_20{
 
 
     public List<String> removeSubfolders(String[] folder) {
-        Arrays.sort(folder,(s1,s2)->{
-            int temp1=s1.split("/").length;
-            int temp2=s2.split("/").length;
-            return temp2-temp1;
-        });
+        Arrays.sort(folder);
         List<String> res=new LinkedList<>();
-        for (int i=0;i<folder.length;i++) {
-            boolean flag=false;
-            for (int j=i;j<folder.length;j++) {
-                if (i!=j) {
-                    if(startsWith(folder[i],folder[j])){
-                        flag=true;
-                    }
-                }
+        int root=0;
+        res.add(folder[0]);
+        for (int i=1;i<folder.length;i++) {
+            if (!folder[i].startsWith(folder[root]+"/")) {
+                res.add(folder[i]);
+                root=i;
             }
-            if (!flag && !"/".equals(folder[i])) {
-               res.add(folder[i]);  
-           }
-       }
-       return res;
-   }
+        }
+        return res;
+    }
 
     //a.startsWith(b)
-   public boolean startsWith(String a,String b){
-    String[] as=a.split("/");
-    String[] bs=b.split("/");
-    if (a.startsWith(b) && as[bs.length-1].equals(bs[bs.length-1])) {
-        return true;
-    }
-    return false;
-/*        String[] as=a.split("/");
+    public boolean startsWith(String a,String b){
+        String[] as=a.split("/");
         String[] bs=b.split("/");
-        if (as.length<bs.length) {
-            return false;
+        if (a.startsWith(b) && as[bs.length-1].equals(bs[bs.length-1])) {
+            return true;
         }
-        for (int i=0;i<bs.length; i++) {
-            if (!as[i].equals(bs[i])) {
-                return false;
-            }
-        }
-        return true;*/
-        
+        return false;
     }
 
+    //放到滑动窗口专题中去了
     public int balancedString(String s) {
-        int max = 0, start = 0, end = 0, cur = -1;
+/*        int max = 0, start = 0, end = 0, cur = -1;
         int[] count = new int[256];
         while (end < s.length()) {
             //当前窗口出现最多的字符
@@ -97,6 +62,6 @@ public class Main10_20{
             max = Math.max(max, end - start + 1);
             end++;
         }
-        return max;
+        return max;*/
     }
 }

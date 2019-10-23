@@ -26,6 +26,7 @@ public class LevelOrderBottom107{
             }
             res.add(list);
         }
+        //直接逆序,总感觉不太好
         Collections.reverse(res);
         return res;
     }
@@ -49,6 +50,7 @@ public class LevelOrderBottom107{
                 list.add(top.val);
                 count--;
             }
+            //从头添加
             res.add(0,list);
         }
         return res;

@@ -59,4 +59,37 @@ public class SearchRange34{
         }
         return -1;
     }
+
+        //两次二分
+    public int[] searchRange(int[] nums, int target) {
+        if(nums.length<=0){
+            return new int[]{-1,-1};
+        }
+        return new int[]{left(nums,target,-1,nums.length-1),right(nums,target,-1,nums.length-1)};
+    }
+
+        //比较好的写法
+    public int left(int []nums,int target,int lo,int hi){
+        while(lo<=hi){
+            int mid=lo+(hi-lo)/2;
+            if(nums[mid]>=target){
+                hi=mid;
+            }else{
+                lo=mid;
+            }
+        }
+        return hi;
+    }
+
+    public int right(int []nums,int target,int lo,int hi){
+        while(lo<=hi){
+            int mid=lo+(hi-lo)/2;
+            if(nums[mid]<=target){
+                lo=mid;
+            }else{
+                hi=mid;
+            }
+        }
+        return hi;
+    }
 }

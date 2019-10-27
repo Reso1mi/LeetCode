@@ -60,36 +60,37 @@ public class SearchRange34{
         return -1;
     }
 
-        //两次二分
+    //两次二分
     public int[] searchRange(int[] nums, int target) {
         if(nums.length<=0){
             return new int[]{-1,-1};
         }
-        return new int[]{left(nums,target,-1,nums.length-1),right(nums,target,-1,nums.length-1)};
+        return new int[]{left(nums,target,0,nums.length-1),right(nums,target,0,nums.length-1)};
     }
 
-        //比较好的写法
+    //找大于等于target的第一个元素,小于肯定不符合
     public int left(int []nums,int target,int lo,int hi){
-        while(lo<=hi){
+        while(lo<hi){
             int mid=lo+(hi-lo)/2;
-            if(nums[mid]>=target){
-                hi=mid;
+            if(nums[mid]<target){ //排除小于target的,剩下【lo,hi】都是大于等于的
+                lo=mid+1;
             }else{
-                lo=mid;
+                hi=mid;
             }
         }
-        return hi;
+        return nums[hi]==target?hi:-1;
     }
 
+    //找小于等于target的最后一个元素,大于肯定不符合
     public int right(int []nums,int target,int lo,int hi){
-        while(lo<=hi){
-            int mid=lo+(hi-lo)/2;
-            if(nums[mid]<=target){
-                lo=mid;
+        while(lo<hi){
+            int mid=lo+(hi-lo)/2+1;
+            if(nums[mid]>target){ //排除大于target,剩下[lo,hi]都是小于等于的
+                hi=mid-1;
             }else{
-                hi=mid;
+                lo=mid;
             }
         }
-        return hi;
+        return nums[hi]==target?hi:-1;
     }
 }

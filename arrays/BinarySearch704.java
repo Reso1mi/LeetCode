@@ -21,7 +21,8 @@ public class BinarySearch704{
 
     //模板二分
     public int search(int[] nums, int target) {
-        int left=0,right=nums.length;
+        //int left=0,right=nums.length;
+        int left=0,right=nums.length-1;
         while(left<right){
             int mid=left+(right-left)/2;
             if(nums[mid]<target){

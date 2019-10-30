@@ -57,6 +57,33 @@ public class LengthOfLIS300{
         return res;
     }
 
+/*    Integer[][] cache=null;
+
+    //dfs,其实也是个背包问题 cache记忆化不好处理有负数,而且长度不知道。。只能用HashMap了
+    public  int lengthOfLIS3(int[] nums) {
+        if (nums==null||nums.length<=0) {
+            return 0;
+        }
+        cache=new Integer[nums.length][Integer.];
+        return dfs(nums,0,Integer.MIN_VALUE);
+    }
+
+    public  int dfs(int[] nums,int index,int prev){
+        if (index==nums.length) {
+            return 0;
+        }
+        if (cache[index][prev]!=null) {
+            return cache[index][prev];
+        }
+        int res=dfs(nums,index+1,prev);
+        if (nums[index]>prev) {
+            return cache[index][prev]=Math.max(dfs(nums,index+1,nums[index])+1,res);
+        }
+        return cache[index][prev]=res;
+    }*/
+
+
+    //贪心+二分
     public static int lengthOfLIS(int[] nums) {
         int[] tail = new int[nums.length];
         int len = 0;

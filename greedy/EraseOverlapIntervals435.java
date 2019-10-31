@@ -71,4 +71,30 @@ public class EraseOverlapIntervals435{
         }
         return intervals.length-max;
     }
+
+    //贪心
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if (intervals==null || intervals.length<=0) {
+            return 0;
+        }
+        //按照起点排序,重叠的时候选择保留结尾小的那一个
+        //Arrays.sort(intervals,(a,b)->a[0]-b[0]); lambda初始化效率会低一点
+        Arrays.sort(intervals,new Comparator<int[]>(){
+            @Override
+            public int compare(int[] a,int[] b){
+                return a[0]-b[0];
+            }
+        });
+        int res=1;
+        int prev=0;
+        for (int i=1;i<intervals.length;i++) {
+            if (intervals[i][0]>=intervals[prev][1]) {
+                res++;
+                prev=i;
+            }else if(intervals[i][1]<intervals[prev][1]){
+                prev=i; //选择结尾小的那一个
+            }
+        }
+        return intervals.length-res;
+    }
 }

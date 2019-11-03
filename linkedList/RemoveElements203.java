@@ -36,6 +36,14 @@ public class RemoveElements203 {
 
 	}
 
+    //2019.11.2 移除以head为首的链表中值为val的节点,返回头
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head==null) {
+            return head;
+        }
+        head.next=removeElements(head.next,val);
+        return head.val==val?head.next:head;
+    }
 
     public static ListNode removeElements(ListNode head, int val) {
  		//首先想到的是遍历，保存当前节点前后的节点然后连接

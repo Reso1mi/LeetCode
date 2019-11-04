@@ -46,28 +46,26 @@ public class Main11_3{
                 res+=map[sum-k];
             }
             map[sum]++;
-            System.out.println(sum+":"+map[sum]);
+            //System.out.println(sum+":"+map[sum]);
         }
         return res;
     }
     
-    /*public int numberOfSubarrays(int[] nums, int k) {
-        int left=-1,right=-1;
-        int count=0,res=0;
-        while(left<right && right<nums.length){
-            while (count<k && right<nums.length) {
-                right++;
-                if (nums[right]%2!=0) {
-                    count++;
-                }
+    public int numberOfSubarrays(int[] nums, int k) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int sum=0,res=0;
+        map.put(0,1);
+        for (int i=0;i<nums.length;i++) {
+            if (nums[i]%2==1) {
+                sum++;
             }
-            if (count==k) {
-                res++;
+            if (sum>=k && map.containsKey(sum-k)) {
+                res+=map.get(sum-k);
             }
-            left++;
+            map.put(sum,map.getOrDefault(sum,0)+1);
         }
         return res;
-    }*/
+    }
 
     public String minRemoveToMakeValid(String s) {
         StringBuilder sb=new StringBuilder(s);

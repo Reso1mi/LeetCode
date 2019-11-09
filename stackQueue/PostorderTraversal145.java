@@ -52,6 +52,30 @@ public class PostorderTraversal145{
         return res;
     }
 
+    //经典后序遍历
+    public List<Integer> postorderTraversals(TreeNode root) {
+        List<Integer> res=new ArrayList<>();
+        if (root==null) return res;
+        Stack<TreeNode> stack=new Stack<>();
+        stack.push(root);
+        TreeNode lastNode=null;
+        while(!stack.isEmpty()){
+            TreeNode cur=stack.peek();
+            if ((cur.left==null && cur.right ==null) || (lastNode!=null &&( cur.left==lastNode || cur.right==lastNode))) {
+                stack.pop();
+                res.add(cur.val);
+                lastNode=cur;
+            }else{
+                if (cur.right!=null) {
+                    stack.push(cur.right);
+                }
+                if (cur.left!=null) {
+                    stack.push(cur.left);
+                }
+            }
+        }
+        return res;
+    }
 
     //摸底递归栈的方式
     public List<Integer> postorderTraversal(TreeNode root) {

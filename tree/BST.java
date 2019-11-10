@@ -274,7 +274,7 @@ public class BST<E extends Comparable<E>>{
         System.out.println("\n递归后序：");
         postorderTravelRecur();
         System.out.println("\n非递归后序");
-        postorderTravelNoRecur2();
+        postorderTravelNoRecur();
         System.out.println("\n层序遍历");
         levelorderTravel();
         return "\n-------------------------";

@@ -10,9 +10,22 @@ public class BSTTest{
         bst.add(11);
         bst.add(9);
         bst.add(12);
-        bst.add(7);
-        System.out.println(bst);
-        System.out.println(bst.contains(3)); //false
-        System.out.println(bst.contains(7)); //true
+        print(bst);
+        print(bst.contains(3)); //false
+        print(bst.contains(7)); //true
+        print(bst.getMax()); //12
+        print(bst.getMin()); //1
+        print(bst.floor(10)); //9
+        print(bst.floor(7)); //7
+        print(bst.floor(0)); //null
+        print(bst.ceiling(10));
+        print(bst.ceiling(13)); //null
+        print(bst.getKth(8));//12
+        print(bst.getRank(12)); //8
+    }
+
+    public static void print(Object obj){
+        System.out.println(obj);
+        System.out.println("----");
     }
 }

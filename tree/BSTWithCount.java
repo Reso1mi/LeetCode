@@ -1,55 +1,60 @@
 import java.util.*;
-public class BST<E extends Comparable<E>>{
+public class BSTWithCount<E extends Comparable<E>>{
 
     //TreeNode
     private class Node{
         public E e;
         public Node left;
         public Node right;
+        //看了算法上的实现,对Node做了调整
+        //添加了一个count用于统计每个节点的子节点的数量(包括自己)
+        public int count;
         public Node(E e){
             this.e=e;
-            left=null;
-            right=null;
+            //节点总数默认为1
+            this.count=1; 
+            this.left=null;
+            this.right=null;
         }
     }
 
     public Node root;
 
-    private int size;
-
-    public BST(){
-        root=null;
-        size=0;
-    }
+    //private int size;
 
     public int size(){
-        return size;
+        return size(root);
+    }
+
+    public int size(Node node){
+        return node==null?0:node.count;
     }
 
     public boolean isEmpty(){
-        return size==0;
+        return root.count==0;
     }
 
     //非递归add
     public void addLoop(E e){
         if (root==null) {
-            size++;
             root=new Node(e);
             return;
         }
         Node temp=root;
         while(temp!=null){
             if (e.compareTo(temp.e)>0) {
+                //修改size递增方式,这里不直接++,而采用更加通用的方式
+                //想好在哪里进行++操作
+                temp.count++;
                 if (temp.right==null) {
                     temp.right=new Node(e);
-                    size++;
                     return;
                 }
                 temp=temp.right;
             }else if (e.compareTo(temp.e)<0) {
+                temp.count++;
                 if (temp.left==null) {
                     temp.left=new Node(e);
-                    size++;
                     return;
                 }
                 temp=temp.left;
@@ -65,7 +70,6 @@ public class BST<E extends Comparable<E>>{
     //add元素后返回新的根节点
     private Node add(Node node, E e){
         if (node == null) {
-            size++;
             return new Node(e);
         }
         if(e.compareTo(node.e) < 0){
@@ -73,6 +77,8 @@ public class BST<E extends Comparable<E>>{
         }else if (e.compareTo(node.e) > 0) {
             node.right=add(node.right, e);   
         }
+        //修改size递增方式,这里不直接++,(++也可以),而采用更加通用的方式
+        node.count=size(node.left)+size(node.right)+1;
         return node;
     }
 
@@ -80,32 +86,27 @@ public class BST<E extends Comparable<E>>{
     public void add2(E e){
         if(root == null){
             root = new Node(e);
-            size ++;
-        }
-        else
-            add2(root, e);
+        }else add2(root, e);
     }
 
     // 向以node为根的二分搜索树中插入元素e，递归算法,略显繁琐
     private void add2(Node node, E e){
-        if(e.equals(node.e)) return;
-
+        if(e.compareTo(node.e)==0) return;//不允许相等
+        node.count++;
         if(e.compareTo(node.e) < 0 && node.left == null){
             node.left = new Node(e);
-            size ++;
             return;
         }
-
         if(e.compareTo(node.e) > 0 && node.right == null){
             node.right = new Node(e);
-            size ++;
             return;
         }
 
-        if(e.compareTo(node.e) < 0)
+        if(e.compareTo(node.e) < 0){
             add2(node.left, e);
-        else //e.compareTo(node.e) > 0
-        add2(node.right, e);
+        }else{ //e.compareTo(node.e) > 0
+            add2(node.right,e);
+        }
     }
 
 
@@ -249,7 +250,7 @@ public class BST<E extends Comparable<E>>{
             int count=queue.size();
             while(count>0){
                 Node node=queue.poll();
-                System.out.print(node.e+" ");
+                System.out.print(node.e+"count:"+size(node)+" ");
                 if (node.left!=null) {
                     queue.add(node.left);
                 }
@@ -273,7 +274,7 @@ public class BST<E extends Comparable<E>>{
         return getMax(root.right);
     }
 
-    //求最小值
+        //求最小值
     public E getMin(){
         return getMin(root).e;
     }
@@ -330,12 +331,9 @@ public class BST<E extends Comparable<E>>{
         return node!=null?node:root;
     }
 
-    //获取第k大的元素,时间复杂度应该是N*logN,并不好,但是我也懒得改了😁
-    //其实这里应该在Node上加一个子节点的个数的属性,添加删除的时候顺便维护下就ok,《算法》上就是这样实现的,有兴趣可以去看看
-    //这样就可以直接获取子节点的个数,不用遍历整棵子树求节点数,时间复杂度O(logN),我为了不影响整体就懒得改了
-    //所以下面的只是为了体现一种思想,这里最好的做法其实是直接中序遍历求第k个就ok
+    //logN时间复杂度
     public E getKth(int k){
-        if (k>=size || k<0) {
+        if (k>=root.count || k<0) {
             return null;
         }
         return getKth(root,k).e;
@@ -345,7 +343,8 @@ public class BST<E extends Comparable<E>>{
         if (root==null) {
             return root;
         }
-        int temp = childSize(root.left);
+        //int temp = childSize(root.left);
+        int temp = size(root.left);
         if (temp>k) {
             return getKth(root.left,k);
         }
@@ -355,14 +354,7 @@ public class BST<E extends Comparable<E>>{
         return root;
     }
 
-    public int childSize(Node node){
-        if (node==null) {
-            return 0;
-        }
-        return childSize(node.left)+childSize(node.right)+1;
-    }
-
-    //获取键所在的排位
+    //logN复杂度,获取键所在的排位
     public int getRank(E e){
         return getRank(root,e);
     }
@@ -372,66 +364,10 @@ public class BST<E extends Comparable<E>>{
             return getRank(root.left,e);
         }
         if (e.compareTo(root.e)>0) {
-            return getRank(root.right,e)+childSize(root.left)+1;
+            //return getRank(root.right,e)+childSize(root.left)+1;
+            return getRank(root.right,e)+size(root.left)+1;
         }
-        return childSize(root.left);
-    }
-
-    //删除最小的键
-    public void deleteMin(){
-        root=deleteMin(root);
-    }
-
-    private Node deleteMin(Node node){
-        if (node.left==null) {
-            return node.right;
-        }
-        node.left=deleteMin(node.left);
-        return node;
-    }
-
-    //删除最大的键
-    public void deleteMax(){
-        root=deleteMax(root);
-    }
-
-    private Node deleteMax(Node node){
-        if (node.right==null) {
-            return node.left;
-        }
-        node.right=deleteMax(node.right);
-        return node;
-    }
-
-    //删除任意的键
-    public void delete(E e){
-        root=delete(root,e);
-    }
-
-    //删除以node为首的BST中,值为e的节点并且返回根节点
-    private Node delete(Node node,E e){
-        if (node==null) {
-            return null;
-        }
-        if (e.compareTo(node.e)>0) { //e>root.e
-            node.right=delete(node.right,e);
-        }else if (e.compareTo(node.e)<0) {
-            node.left=delete(node.left,e);
-        }else{ //e==root.e
-            if (node.left==null) { //如果没有左子树就返回右子树
-                return node.right;
-            }
-            if (node.right==null) { //如果没有右子树就返回左子树
-                return node.left;
-            }
-            Node delNode=node;
-            //有左右子节点都有
-            node=getMin(node.right); //用右子树的最小值填补删除的元素的空位
-            //删除对应的右子树的最小值,然后连接起来
-            node.right=deleteMin(delNode.right);
-            node.left=delNode.left;
-        }
-        return node;
+        return size(root.left);
     }
 
     @Override

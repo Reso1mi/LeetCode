@@ -1,7 +1,7 @@
 public class BSTTest{
     public static void main(String[] args) {
-        BST<Integer> bst=new BST<>();
-        bst.add(8);
+        BSTWithCount<Integer> bst=new BSTWithCount<>();
+/*        bst.add(8);
         bst.add(3);
         bst.add(1);
         bst.add(6);
@@ -9,7 +9,7 @@ public class BSTTest{
         bst.add(7);
         bst.add(11);
         bst.add(9);
-        bst.add(12);
+        bst.add(12);*/
 
 /*        bst.add2(8);
         bst.add2(3);
@@ -21,7 +21,7 @@ public class BSTTest{
         bst.add2(9);
         bst.add2(12);*/
 
-/*        bst.addLoop(8);
+        bst.addLoop(8);
         bst.addLoop(3);
         bst.addLoop(1);
         bst.addLoop(6);
@@ -29,9 +29,9 @@ public class BSTTest{
         bst.addLoop(7);
         bst.addLoop(11);
         bst.addLoop(9);
-        bst.addLoop(12);*/
+        bst.addLoop(12);
         print(bst);
-        print(bst.size());
+        print(bst.size()); //9
         print(bst.contains(13)); //false
         print(bst.contains(7)); //true
         print(bst.getMax()); //12
@@ -44,7 +44,7 @@ public class BSTTest{
         print(bst.getKth(8));//12
         print(bst.getRank(12)); //8
         //修改bst结构
-        bst.delete(3);
+        //bst.delete(3);
         print(bst);
     }
 

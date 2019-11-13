@@ -287,7 +287,6 @@ public class BST<E extends Comparable<E>>{
 
     //floor向下取整,小于等于e的最大元素
     public E floor(E e){
-        //没有做校验,会有NPE
         Node node=floor(root,e);
         return node!=null?node.e:null;
     }

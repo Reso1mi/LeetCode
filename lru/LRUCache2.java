@@ -22,6 +22,11 @@ public class LRUCache {
 
     public LRUCache(int capacity) {
         this.capacity=capacity;
+        //初始化头尾节点,注意这两个节点只是个哨兵节点,并不会存入map中
+        head=new Node(-1,-1);
+        tail=new Node(-1,-1);
+        head.next=tail;
+        tail.pre=head;
     }
     
     public int get(int key) {
@@ -38,44 +43,47 @@ public class LRUCache {
         Node newHead=new Node(key,value);
         if (map.containsKey(key)) {
             Node node=map.get(key);
+            //设置节点值为新value
             node.value=value;
             //移动到链表头
             move2Head(node);
             return;
         }
+        //满了,先剔除tail再插入
         if (map.size()==capacity) {
-            map.remove(tail.key);
-            removeNode(tail);
+            map.remove(popTail().key);
         }
-        move2Head(newHead);
+        addFirst(newHead);
         map.put(key,newHead);
     }
 
-    public void removeNode(Node node){
-        if (node.key==tail.key) {
-            tail=tail.pre;
-            return;
-        }
-        if (node.pre==null || node.next==null) {
-            return;
-        }
+    //弹出tail
+    private Node popTail(){
+        Node newTail=tail.pre;
+        removeNode(newTail);
+        return newTail;
+    }
+
+    //移除节点
+    private void removeNode(Node node){
         node.pre.next=node.next;
         node.next.pre=node.pre;
     }
 
-    public void move2Head(Node newHead){
-        if (map.size()==0) {
-            head=tail=newHead;
-            return;
-        }
-        if (newHead.key==head.key) {
-            return;
-        }
-        removeNode(newHead);
-        newHead.next=head;
-        newHead.pre=null;
-        head.pre=newHead;
-        head=newHead;
+    //从头添加
+    private void addFirst(Node node){
+        node.next=head.next;
+        head.next.pre=node;
+        head.next=node;
+        node.pre=head;
+    }
+
+    //移动节点到head
+    private void move2Head(Node node){
+        //删除原链表中对应位置的node
+        removeNode(node);
+        //从头再添加一遍
+        addFirst(node);
     }
 }
 

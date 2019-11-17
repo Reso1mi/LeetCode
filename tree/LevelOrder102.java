@@ -31,6 +31,20 @@ public class LevelOrder102{
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        helper(res, root, 0);
+        return res;
+    }
+
+    private void helper(List<List<Integer>> res, TreeNode root, int depth) {
+        if (root == null) return;
+        if (res.size() == depth) res.add(new LinkedList<>());
+        res.get(depth).add(root.val);
+        helper(res, root.left, depth + 1);
+        helper(res, root.right, depth + 1);
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res=new ArrayList<>();
         if (root ==null) {
             return res;

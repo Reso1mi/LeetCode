@@ -61,7 +61,7 @@ public class PostorderTraversal145{
         TreeNode lastNode=null;
         while(!stack.isEmpty()){
             TreeNode cur=stack.peek();
-            if ((cur.left==null && cur.right ==null) || (lastNode!=null &&( cur.left==lastNode || cur.right==lastNode))) {
+            if ((cur.left==null && cur.right ==null) || (lastNode!=null && ( cur.left==lastNode || cur.right==lastNode))) {
                 stack.pop();
                 res.add(cur.val);
                 lastNode=cur;

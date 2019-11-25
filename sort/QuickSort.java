@@ -1,10 +1,14 @@
 public class QuickSort{
     public static void main(String[] args) {
-        int[] nums={1,2,0,-1,1,214,23,4,12,43,51,2312,451,23,4,1,32,412,12,4,124,124,124,314,31,4,232321,-123};   
+        int[] nums=generateRandomArray(10000000,1000);
         quickSort(nums,0,nums.length-1);
-        for (int i=0;i<nums.length;i++) {
-            System.out.println(nums[i]);
+        for (int i=1;i<nums.length;i++) {
+            if (nums[i-1]>nums[i]) {
+                System.out.println("fuxk!!!");
+                return;
+            }
         }
+        System.out.println("sucess!!!!!");
     }
 
     public static void quickSort(int[] nums,int left,int right){
@@ -57,5 +61,14 @@ public class QuickSort{
         int temp=nums[a];
         nums[a]=nums[b];
         nums[b]=temp;
+    }
+
+    // for test
+    public static int[] generateRandomArray(int maxSize, int maxValue) {
+        int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
+        }
+        return arr;
     }
 }

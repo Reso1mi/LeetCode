@@ -52,4 +52,26 @@ public class IsBalanced110{
         }
         return Math.max(hight(root.right),hight(root.left))+1;
     }
+
+    //buttom 2 top
+    public boolean isBalanced(TreeNode root) {
+        if (root==null) return true;
+        hight(root);
+        return ans;
+    }
+
+    public int hight(TreeNode root){
+        if (root==null) {
+            return 0;
+        }
+        int left=hight(root.left);
+        if (left==-1) {
+            return -1;
+        }
+        int right=hight(root.right);
+        if (right==-1) {
+            return -1;
+        }
+        return Math.abs(left-right)>1?-1:Math.max(left,right)+1;
+    }
 }

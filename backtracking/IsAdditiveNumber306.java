@@ -76,14 +76,8 @@ public class IsAdditiveNumber306{
         int bIdx=b.length()-1;
         int temp=0; //进位
         while(aIdx>=0 || bIdx>=0) {
-            int as=0;
-            if (aIdx>=0) {
-                as=a.charAt(aIdx)-48;
-            }
-            int bs=0;
-            if (bIdx>=0) {
-                bs=b.charAt(bIdx)-48;   
-            }
+            int as=aIdx>=0?a.charAt(aIdx)-48:0;
+            int bs=bIdx>=0?b.charAt(bIdx)-48:0;
             int sum=as+bs+temp;
             temp=(sum)/10;
             res.append(sum%10);

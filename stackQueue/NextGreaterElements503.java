@@ -9,7 +9,7 @@ public class NextGreaterElements503{
     }
 
     //todo 没有优化的憨憨做法
-    public static int[] nextGreaterElements(int[] nums) {
+    public static int[] nextGreaterElementsSilly(int[] nums) {
         if (nums==null || nums.length<=0) {
             return new int[]{};
         }
@@ -36,21 +36,22 @@ public class NextGreaterElements503{
         return res;
     }
 
-    //1 2 -1 3 1 2 -1 3
-/*    public int[] nextGreaterElements(int[] nums) {
+    public static int[] nextGreaterElements(int[] nums) {
         if (nums==null || nums.length<=0) {
-            return null;
+            return new int[]{};
         }
         Stack<Integer> stack=new Stack<>();
         stack.push(0);
         int[] res=new int[nums.length];
-        for (int i=0;i<nums.length;i++) {
-            while(!stack.isEmpty()&&) {
-                
+        Arrays.fill(res,-1);
+        int index=1;
+        for (int i=1;i<nums.length*2;i++) {
+            index=i>=nums.length?i%nums.length:i;
+            while(!stack.isEmpty()&&nums[stack.peek()]<nums[index]) {
+                res[stack.pop()]=nums[index];
             }
-            stack.push(i);
-
+            stack.push(index);
         }
         return res;
-    }*/
+    }
 }

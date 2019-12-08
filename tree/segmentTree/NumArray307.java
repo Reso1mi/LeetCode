@@ -1,5 +1,29 @@
 import java.util.function.*;
-public class SegmentTree<E>{
+
+public class NumArray307{
+
+    private SegmentTree<Integer> segTree;
+
+    public NumArray(int[] nums) {
+        if (nums.length>0) {
+            Integer[] data=new Integer[nums.length];
+            for (int i=0;i<nums.length;i++) {
+                data[i]=nums[i];
+            }
+            segTree = new SegmentTree<Integer>(data,(a,b)->a+b);
+        }
+    }
+    
+    public void update(int i, int val) {
+        segTree.update(i,val);
+    }
+    
+    public int sumRange(int i, int j) {
+        return segTree.searchRange(i,j);
+    }
+}
+
+class SegmentTree<E>{
     
     private E[] data;
 
@@ -73,18 +97,6 @@ public class SegmentTree<E>{
         tree[rootIndex]=function.apply(tree[leftChild(rootIndex)],tree[rightChild(rootIndex)]);
     }
 
-
-    public int getSize(){
-        return data.length;
-    }
-
-    public E get(int index){
-        if (index<0 || index>=data.length) {
-            throw new IllegalArgumentException("index is illegal!");
-        }
-        return data[index];
-    }
-
     //左孩子
     private int leftChild(int index){
         return index*2+1;
@@ -93,22 +105,5 @@ public class SegmentTree<E>{
     //右孩子
     private int rightChild(int index){
         return index*2+2;
-    }
-    
-    @Override
-    public String toString(){
-        StringBuilder res = new StringBuilder();
-        res.append('[');
-        for(int i = 0 ; i < tree.length ; i ++){
-            if(tree[i] != null)
-                res.append(tree[i]);
-            else
-                res.append("null");
-
-            if(i != tree.length - 1)
-                res.append(", ");
-        }
-        res.append(']');
-        return res.toString();
     }
 }

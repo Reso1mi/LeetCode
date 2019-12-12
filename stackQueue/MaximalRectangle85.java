@@ -4,6 +4,6 @@ public class MaximalRectangle85{
     }
 
     public int maximalRectangle(char[][] matrix) {
-        int[] height=        
+        
     }
 }

@@ -69,7 +69,7 @@ public class TrieByArray{
             if (cur.next[c-'a']==null) {
                  return false;   
             }
-            cur=cur.next[c='a'];
+            cur=cur.next[c-'a'];
         }
         return cur.isWord;
     }

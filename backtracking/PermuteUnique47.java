@@ -12,15 +12,15 @@ public class PermuteUnique47{
         }
         //Arrays.sort(nums); 解法二需要先排序
         boolean[] visit=new boolean[nums.length];
-        permuteUnique(nums,0,new ArrayList(),visit);
+        permuteUnique(nums,new ArrayList(),visit);
         return res;
     }
 
     private List<List<Integer>> res=new ArrayList<>();
 
-    public void permuteUnique(int[] nums,int index,List<Integer> lis,boolean[] visit){
+    public void permuteUnique(int[] nums,List<Integer> lis,boolean[] visit){
         HashSet<Integer> set=new HashSet<>();
-        if (index==nums.length) {
+        if (lis.size()==nums.length) {
             res.add(new ArrayList(lis));
             return;
         }
@@ -29,15 +29,15 @@ public class PermuteUnique47{
                 lis.add(nums[i]);
                 visit[i]=true;
                 set.add(nums[i]);
-                permuteUnique(nums,index+1,lis,visit);
+                permuteUnique(nums,lis,visit);
                 visit[i]=false;
                 lis.remove(lis.size()-1);
             }
         }
     }
 
-    public void permuteUnique2(int[] nums,int index,List<Integer> lis,boolean[] visit){
-        if (index==nums.length) {
+    public void permuteUnique2(int[] nums,List<Integer> lis,boolean[] visit){
+        if (lis.size()==nums.length) {
             res.add(new ArrayList(lis));
             return;
         }
@@ -48,7 +48,7 @@ public class PermuteUnique47{
             if (!visit[i]) {
                 lis.add(nums[i]);
                 visit[i]=true;
-                permuteUnique(nums,index+1,lis,visit);
+                permuteUnique2(nums,lis,visit);
                 visit[i]=false;
                 lis.remove(lis.size()-1);
             }

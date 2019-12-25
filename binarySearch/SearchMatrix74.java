@@ -20,7 +20,7 @@ public class SearchMatrix74{
         System.out.println(c.searchMatrix(matrix,11));
     }
 
-    public boolean searchMatrix(int[][] matrix, int target) {
+    public boolean searchMatrix2(int[][] matrix, int target) {
         if(matrix==null || matrix.length<=0 || matrix[0].length<=0){
             return false;
         }
@@ -56,7 +56,26 @@ public class SearchMatrix74{
         return target==matrix[column][low];
     }
 
+    //将二维的数组拉成一唯的
+    // 1 2 3
+    // 4 5 6
+    // 7 8 9
+    // 9 9 9
     public boolean searchMatrix(int[][] matrix, int target) {
-        
+        if(matrix==null || matrix.length<=0 || matrix[0].length<=0){
+            return false;
+        }
+        int m=matrix.length;
+        int n=matrix[0].length;
+        int left=0,right=m*n-1;
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(matrix[mid/n][mid%n]<target){
+                left=mid+1;
+            }else{
+                right=mid;
+            }
+        }
+        return matrix[left/n][left%n]==target;
     }
 }

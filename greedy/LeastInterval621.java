@@ -1,3 +1,4 @@
+import java.util.*;
 public class LeastInterval621{
     public static void main(String[] args) {
         
@@ -8,25 +9,22 @@ public class LeastInterval621{
         for (int i=0;i<tasks.length;i++) {
             map[tasks[i]-'A']++;
         }
-        StringBuilder sb=new StringBuilder();
         int res=0;
-        while(true){
-            int count=0;
-            for (int i=0;i<26;i++) {
-                if (map[i]!=0) {
-                    map[i]--;
-                    count++;
-                    sb.append(map[i]);
-                    if (count==n) {
-                        break;
-                    }
-                }
-                res=n;
+        Queue<Integer> queue=new PriorityQueue<>();
+        for (int count:map) {
+            queue.add(count);
+        }
+        while(!queue.isEmpty()){
+            int len=n+1;
+            List<Integer> taskLists=new LinkedList<>();
+            for (int i=0;i<len;i++) {
+                int task=queue.poll();
+                taskLists.add(task);
             }
         }
     }
 
-    public int leastInterval(char[] tasks, int n) {
+    public int leastInterval2(char[] tasks, int n) {
         int[] map=new int[26];
         for (int i=0;i<tasks.length;i++) {
             map[tasks[i]-'A']++;

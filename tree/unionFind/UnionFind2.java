@@ -1,24 +1,27 @@
-public class UnionFind1 implements UF{
+public class UnionFind2 implements UF{
 
-    private int[] id; //集合ids
+    private int[] parent; //父ID
 
     public UnionFind1(int size){
         id=new int[size];
         for (int i=0;i<size;i++) {
-            id[i]=i;
+            parent[i]=i;
         }
     }
 
     public int getSize(){
-        return id.length;
+        return parent.length;
     }
 
     //p所属的集合ID
-    private int find(int p){
-        if (p<0 && p>=id.length) {
-            throw new IllegalArgumentException("p is out....");
+    private int find(int index){
+        if (index<0 && index>=parent.length) {
+            throw new IllegalArgumentException("index is out....");
         }
-        return id[p];
+        while(parent[index]!=index){
+            index=parent[index];
+        }
+        return index;
     }
     
     //判断集合ID是不是一样的
@@ -32,10 +35,6 @@ public class UnionFind1 implements UF{
         if (qId==pId) {
             return;
         }
-        for (int i=0;i<id.length;i++) {
-            if (id[i]!=qID) {
-                id[i]=qID;
-            }
-        }
+        parent[pID]=qID;
     }
 }

@@ -1,11 +1,15 @@
-public class UnionFind2 implements UF{
+public class UnionFind4 implements UF{
 
     private int[] parent; //父ID
 
-    public UnionFind2(int size){
+    private int[] hight;
+
+    public UnionFind4(int size){
         parent=new int[size];
+        hight=new int[size];
         for (int i=0;i<size;i++) {
             parent[i]=i;
+            hight[i]=1;
         }
     }
 
@@ -35,6 +39,13 @@ public class UnionFind2 implements UF{
         if (qID==pID) {
             return;
         }
-        parent[pID]=qID;
+        if (hight[pID]>hight[qID]) {
+            parent[qID]=pID;    
+        }else if(hight[pID]<hight[qID]){
+            parent[pID]=qID;
+        }else{ //高度相等情况,才会增大树的高度
+            parent[pID]=qID; 
+            hight[qID]++;
+        }
     }
 }

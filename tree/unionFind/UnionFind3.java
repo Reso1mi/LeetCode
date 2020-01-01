@@ -1,11 +1,15 @@
-public class UnionFind2 implements UF{
+public class UnionFind3 implements UF{
 
     private int[] parent; //父ID
 
-    public UnionFind2(int size){
+    private int[] sz;
+
+    public UnionFind3(int size){
         parent=new int[size];
+        sz=new int[size];
         for (int i=0;i<size;i++) {
             parent[i]=i;
+            sz[i]=1;
         }
     }
 
@@ -35,6 +39,12 @@ public class UnionFind2 implements UF{
         if (qID==pID) {
             return;
         }
-        parent[pID]=qID;
+        if (sz[pID]>sz[qID]) {
+            parent[qID]=pID;
+            sz[pID]+=sz[qID];    
+        }else{
+            parent[pID]=qID;
+            sz[qID]+=sz[pID];
+        }
     }
 }

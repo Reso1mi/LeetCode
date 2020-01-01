@@ -29,12 +29,12 @@ public class UnionFind1 implements UF{
     public void unionElement(int p,int q){
         int pID=find(p);
         int qID=find(q);
-        if (qId==pId) {
+        if (qID==pID) {
             return;
         }
         for (int i=0;i<id.length;i++) {
-            if (id[i]!=qID) {
-                id[i]=qID;
+            if (id[i]==qID) {
+                id[i]=pID;
             }
         }
     }

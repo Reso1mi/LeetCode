@@ -1,11 +1,15 @@
-public class UnionFind2 implements UF{
+public class UnionFind5 implements UF{
 
     private int[] parent; //父ID
 
-    public UnionFind2(int size){
+    private int[] rank;
+
+    public UnionFind5(int size){
         parent=new int[size];
+        rank=new int[size];
         for (int i=0;i<size;i++) {
             parent[i]=i;
+            rank[i]=1;
         }
     }
 
@@ -19,9 +23,20 @@ public class UnionFind2 implements UF{
             throw new IllegalArgumentException("index is out....");
         }
         while(parent[index]!=index){
+            parent[index]=parent[parent[index]];
             index=parent[index];
         }
         return index;
+    }
+
+    private int find2(int index){
+        if (index<0 && index>=parent.length) {
+            throw new IllegalArgumentException("index is out....");
+        }
+        if(parent[index]!=index){
+            parent[index]=find(parent[index]);
+        }
+        return parent[index];
     }
     
     //判断集合ID是不是一样的
@@ -35,6 +50,13 @@ public class UnionFind2 implements UF{
         if (qID==pID) {
             return;
         }
-        parent[pID]=qID;
+        if (rank[pID]>rank[qID]) {
+            parent[qID]=pID;    
+        }else if(rank[pID]<rank[qID]){
+            parent[pID]=qID;
+        }else{ //高度相等情况,才会增大树的高度
+            parent[pID]=qID; 
+            rank[qID]++;
+        }
     }
 }

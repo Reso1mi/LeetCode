@@ -38,6 +38,7 @@ public class IsMatch10{
 
      */
 
+    //回溯的做法,略复杂
     public boolean isMatch(String s, String p) {
         return match(s,0,p,0);
     }
@@ -80,6 +81,32 @@ public class IsMatch10{
                 return true;
             }
             return false;
+        }
+    }
+
+
+    //动态规划 ----------- 以后再写吧。。。。这题现在写了过两天也忘了。。。。
+    //还是上面的递归好理解
+    public boolean isMatch(String s, String p) {
+        //dp[i][j] 代表s的前i个字符和p的前j个字符是否匹配
+        boolean[][] dp=new boolean[s.length()+1][s.length()+1];
+        //dp[0][0]=true;
+        //dp[i][0]=false
+        //dp[0][j]=dp[0][j-1] && p[j]="*"
+        dp[0][0]=true;
+        for (int j=2;j<=p.length();j++) {
+            if (p.charAt(j-1)=='*') {
+                dp[0][j]=dp[0][j-2];   
+            }
+        }
+        for (int i=1;i<s.length();i++) {
+            for (int j=1;j<p.length();j++) {
+                if (p.charAt(i-1) == s.charAt(j-1) || p.charAt(j)=='.') {
+                    dp[i][j]=dp[i-1][j-1];
+                }else if (p.charAt(j-1)=='*' && p.charAt(j-2)==s.charAt() ) { //ab .* | ab ab*
+                    dp[i][j]=dp[i][j-1] | dp[i-1][j];
+                }
+            }
         }
     }
 }

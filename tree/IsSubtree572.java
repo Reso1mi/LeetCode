@@ -14,6 +14,7 @@ public class IsSubtree572{
         if (s==null) {
             return false;
         }
+        boolean b=false;
         if (s!=null&& t!=null && s.val == t.val) {
             b=isSubtree(s.left,t.left) && isSubtree(s.right,t.right);
         }

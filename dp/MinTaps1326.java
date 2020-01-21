@@ -23,7 +23,10 @@ public class MinTaps1326{
 
     //贪心
     public int minTaps(int n,int[] ranges){
-        
-
+        int[] maxRight=new int[n+1];
+        for (int i=0;i<; ) {
+            
+        }
+        return count;
     }
 }

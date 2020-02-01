@@ -25,7 +25,7 @@ public class CalcEquation399{
 
     public void merge(String a,String b,Double value){
         init(a);init(b);
-        String fa=find(a); // fa/a=val[a], fb/b=val[b]
+        String fa=find(a); // a/fa=val[a], b/fb=val[b]
         String fb=find(b);
         if (fa.equals(fb)) {
             return;
@@ -90,7 +90,7 @@ public class CalcEquation399{
 
     public void merge(String a,String b,Double value){
         init(a);init(b);
-        String fa=find(a); // fa/a=val[a], fb/b=val[b]
+        String fa=find(a); // a/fa=val[a], b/fb=val[b]
         String fb=find(b);
         if (fa.equals(fb)) {
             return;

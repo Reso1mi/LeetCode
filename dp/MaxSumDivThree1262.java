@@ -12,7 +12,7 @@ public class MaxSumDivThree1262{
         }
         int[][] dp=new int[nums.length][3]; 
         //dp[i][k] 0~i 之间/3余k的最大元素和
-        dp[0][0]=nums[0]%3==0?nums[0]:Integer.MIN_VALUE;
+        dp[0][0]=nums[0]%3==0?nums[0]:Integer.MIN_VALUE;//这里改为0就对了
         dp[0][1]=nums[0]%3==1?nums[0]:Integer.MIN_VALUE;
         dp[0][2]=nums[0]%3==2?nums[0]:Integer.MIN_VALUE;
         for (int i=1;i<nums.length;i++) {

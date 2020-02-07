@@ -25,6 +25,28 @@ public class MaxProduct1339{
         return sum.get(sum.size()-1);
     }
 
+    //空间小一点的解法
+    long sumAll=0;
+
+    long max=-1;
+
+    private long mod=1000000007;
+
+    public int maxProduct(TreeNode root) {
+        sumAll=dfs(root);
+        dfs(root);
+        return (int)(max%mod);
+    }
+
+    public long dfs(TreeNode root){
+        if (root==null) {
+            return 0;
+        }
+        long temp=root.val+dfs(root.left)+dfs(root.right);
+        max=Math.max(temp*(sumAll-temp),max);
+        return temp;
+    }
+
 
     //比赛sb解法
     private long mod=1000000007;

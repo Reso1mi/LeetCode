@@ -29,6 +29,8 @@ public class DecodeString394{
         return sb.toString();
     }
 
+
+    //最优解
     public String decodeString(String s) {
         if (s==null || s.length()<=0) {
             return "";
@@ -64,18 +66,16 @@ public class DecodeString394{
         return sb.toString();
     }
 
+    private int index=0; //字符索引下标
+
     public String decodeString(String s) {
         if (s==null || s.length()<=0) {
             return "";
         }
-        return dfs(s,0).toString();
-    }
-
-    //明天再改
-    public String dfs(String s,int index){
         String sb="";
         while(index<s.length()){
-            if (s.charAt(index)==']') {
+            if (s.charAt(index)==']') { //遇到右括号就结束
+                index++;//index定位到右括号下一个
                 return sb;
             }else if(s.charAt(index)>='0' && s.charAt(index)<='9'){
                 int temp=index;
@@ -83,8 +83,8 @@ public class DecodeString394{
                     index++;
                 }
                 int repeat=Integer.valueOf(s.substring(temp,index));
-                index++;
-                String rs=dfs(s,index); //跳过'['
+                index++;//跳过'['
+                String rs=decodeString(s);//从左括号开始
                 for (int i=0;i<repeat;i++) {
                     sb+=rs;
                 }
@@ -93,5 +93,40 @@ public class DecodeString394{
             }
         }
         return sb;
+    }
+
+
+
+    //并不优雅。。。。
+    public String decodeString(String s) {
+        if (s==null || s.length()<=0) {
+            return "";
+        }
+        return dfs(s,0)[0].toString();
+    }
+
+    //明天再改
+    public String[] dfs(String s,int index){
+        String sb="";
+        while(index<s.length()){
+            if (s.charAt(index)==']') { //遇到右括号就结束
+                return new String[]{sb,""+(index+1)};
+            }else if(s.charAt(index)>='0' && s.charAt(index)<='9'){
+                int temp=index;
+                while(index<s.length() && s.charAt(index)!='['){
+                    index++;
+                }
+                int repeat=Integer.valueOf(s.substring(temp,index));
+                index++;//跳过'['
+                String[] rs=dfs(s,index);//从左括号开始
+                index=Integer.valueOf(rs[1]);
+                for (int i=0;i<repeat;i++) {
+                    sb+=rs[0];
+                }
+            }else{
+                sb+=s.charAt(index++);
+            }
+        }
+        return new String[]{sb};
     }
 }

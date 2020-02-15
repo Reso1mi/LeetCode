@@ -5,6 +5,10 @@ public class HashTable<K,V>{
     private int M;
     private int size;
 
+    private static final int upperTol=10;
+    private static final int lowerTol=2;
+    private static final int initCapacity=7;
+
     public HashTable(int M){
         this.M=M;
         size=0;
@@ -12,6 +16,10 @@ public class HashTable<K,V>{
         for (int i=0;i<M;i++) {
             hashtable[i]=new TreeMap<>();
         }
+    }
+
+    public HashTable(){
+        this(initCapacity);
     }
 
     private int hash(K key){
@@ -29,6 +37,11 @@ public class HashTable<K,V>{
         }else{
             map.put(key,value);
             size++;
+            //扩容
+            // size/M >=upperTol
+            if (size>=upperTol*M) {
+                resize(2*M);
+            }
         }
     }
 
@@ -38,8 +51,27 @@ public class HashTable<K,V>{
         if(map.containsKey(key)){
             ret=map.remove(key);
             size--;
+            if (size<lowerTol*M && M/2 >= initCapacity) {
+                resize(M/2);
+            }
         }
         return ret;
+    }
+
+    public void resize(int size){
+        TreeMap<K,V> newHashTable=new TreeMap[size];
+        for (int i=0;i<size;i++) {
+            newHashTable[i]=new TreeMap<>();
+        }
+        int oldSize=M;
+        this.M=size; //要先将M设置好,不然hash的值不对
+        for (int i=0;i<oldSize;i++) {
+            TreeMap<K,V> map=hashtable[i];
+            for (K key:map.keySet()) {
+                newHashTable[hash(key)].put(key,map.get(key));
+            }
+        }
+        this.hashtable=newHashTable;
     }
 
     public void set(K key,V value){

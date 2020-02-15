@@ -72,4 +72,41 @@ public class WordSearch79{
     public boolean isValid(char[][] cs,int x,int y){
         return x>=0 && x<cs.length && y >=0 && y< cs[0].length;
     }
+
+    
+    //刷剑指又写了一版
+    private int[][] direction={{0,1},{0,-1},{-1,0},{1,0}};
+
+    public boolean exist(char[][] board, String word) {
+        boolean[][] visit=new boolean[board.length][board[0].length];
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<board[0].length;j++){
+                if(board[i][j]==word.charAt(0)){
+                    if(dfs(board,word,1,i,j,visit)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(char[][] board,String word,int index,int x,int y,boolean[][] visit){
+        if(index==word.length()) return true;
+        visit[x][y]=true;
+        //System.out.print(board[x][y]+" ");
+        for(int i=0;i<direction.length;i++){
+            int nx=x+direction[i][0];
+            int ny=y+direction[i][1];
+            if(isValid(board,nx,ny) && !visit[nx][ny] && word.charAt(index)==board[nx][ny] && dfs(board,word,index+1,nx,ny,visit) ){
+                return true;
+            }
+        }
+        visit[x][y]=false;
+        return false;
+    }
+
+    public boolean isValid(char[][] board,int x,int y){
+        return x>=0 && x<board.length && y>=0 && y<board[0].length;
+    }
 }

@@ -16,11 +16,11 @@ public class VerifyPostorderJZ33{
         int index=left-1;
         for(int i=right-1;i>=left;i--){
             if(postorder[i]<root){
-                index=i; //找到第一个小于root的,作为右子树的根
+                index=i; //找到第一个小于root的,作为左子树的根
                 break;
             }
         }
-        //判断右子树是否都是小于root的
+        //判断左子树是否都是小于root的
         for(int i=index;i>=left;i--){
             if(postorder[i]>root){
                 return false;
@@ -69,4 +69,22 @@ public class VerifyPostorderJZ33{
         //验证左右子树
         return verify(postorder,left,index-1) && verify(postorder,index,right-1);
     }*/
+
+    //单调栈解法
+    public boolean verifyPostorder(int[] postorder) {
+        if(postorder==null || postorder.length<=0) return true;
+        Deque<Integer> stack=new ArrayDeque<>();
+        //1 2 | 4 5 | 3
+        int curRoot=Integer.MAX_VALUE;
+        for(int i=postorder.length-1;i>=0;i--){
+            if(postorder[i]>curRoot){
+                return false;
+            }
+            while(!stack.isEmpty() && postorder[i]<postorder[stack.peek()]){
+                curRoot=postorder[stack.pop()];
+            }
+            stack.push(i);
+        }
+        return true;
+    }
 }

@@ -75,6 +75,23 @@ public class LintCode_BackPack92{
         }
         return dp[m];
     }
+
+
+    //代码优化
+    public int backPack(int m,int[] A) {
+        if (A==null || A.length<=0) {
+            return 0;
+        }
+        int[] dp=new int[m+1];
+        for (int i=0;i<A.length;i++) {
+            for (int j=m;j>=A[i];j--) {
+                dp[j]=Math.max(dp[j],dp[j-A[i]]+A[i]);
+            }
+        }
+        return dp[m];
+    }
+
+    
     
 /*    828,125,740,724,983,321,773,
     678,841,842,875,377,123,144,

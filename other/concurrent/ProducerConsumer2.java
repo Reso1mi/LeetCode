@@ -1,5 +1,6 @@
 import java.util.*;
-import java.util.concurent.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.*;
 /*
 多生产者消费者
@@ -12,7 +13,7 @@ public class ProducerConsumer2{
     private static List<Integer> buffer=new ArrayList<>();
 
     //缓冲区的最大值
-    private static int MAX=3;
+    private static int MAX=5;
 
     //锁
     private static ReentrantLock LOCK=new ReentrantLock();
@@ -25,7 +26,7 @@ public class ProducerConsumer2{
     private static int size=0;
 
     //produce数据
-    private static int data=1;
+    private static int data=0;
 
     public static void main(String[] args) {
         Stream.of("Produce1","Produce2","Produce3","Produce4","Produce5").forEach(name->{
@@ -48,13 +49,13 @@ public class ProducerConsumer2{
         try{
             LOCK.lock();
             while(size>=MAX){
-                LOCK.wait();
+                producerCondition.await();
             }
-            buffer.add(data++);
+            buffer.add(++data);
             size++;
+            //Thread.sleep(500);
             System.out.println(Thread.currentThread().getName()+" produce "+ data);
-            Thread.sleep(1000);
-            LOCK.notifyAll();
+            consumerCondition.signalAll();//其实signal就可以了
         }catch(Exception e){
             e.printStackTrace();
         }finally{
@@ -62,17 +63,18 @@ public class ProducerConsumer2{
         }
     }
 
-    public static void consumer () throws InterruptedException{
-        LOCK.lock();
+    public static void consumer () {
         try{
+            LOCK.lock();
             while(size==0){
-                consumerCondition.wait();
+                consumerCondition.await();
             }
             int temp=buffer.remove(0);
+            size--;
+            //Thread.sleep(500);
             System.out.println(Thread.currentThread().getName()+" consumer "+ temp);
-            Thread.sleep(1000);
-                //只唤醒消费者
-            producerCondition.sigalAll();
+            //只唤醒消费者
+            producerCondition.signalAll();
         }catch(Exception e){
             e.printStackTrace();
         }finally{

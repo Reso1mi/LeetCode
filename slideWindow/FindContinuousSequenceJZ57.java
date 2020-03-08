@@ -20,6 +20,7 @@ public class FindContinuousSequenceJZ57{
             }else{ //build结果集
                 res.add(build(left,right));
                 left++;//窗口左移,剔除一个小的
+                right++; //回头重写发现这里还可以优化,右边界也可以扩大
             }
         }
         return res.toArray(new int[0][0]);

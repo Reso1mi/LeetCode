@@ -22,4 +22,16 @@ public class GcdOfStrings1071{
         //gcd(str2,余数)
         return gcdOfStrings(str2,str1.substring(index1,str1.length()));
     }
+
+    public String gcdOfStrings(String str1, String str2) {
+        if(!(str1+str2).equals(str2+str1)){
+            return "";
+        }
+        return str1.substring(gcd(str1.length(),str2.length()));
+    }
+
+    public int gcd(int a,int b){
+        if(b==0) return a;
+        return gcd(b,a%b);
+    }
 }

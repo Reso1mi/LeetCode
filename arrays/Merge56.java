@@ -35,6 +35,25 @@ public class Merge56{
         return list.toArray(new int[0][0]); //题解哪里学到一招
     }
 
+    //偶然看到,简化下代码
+    public int[][] merge(int[][] intervals) {
+        if (intervals ==null || intervals.length<=0) {
+            return new int[][]{};
+        }
+        Arrays.sort(intervals,(a,b)->a[0]-b[0]);
+        LinkedList<int[]> list=new LinkedList<>();
+        for (int i=1;i<intervals.length;i++) {
+            if (intervals[i][0]<=intervals[i-1][1]) {
+                intervals[i][0]=intervals[i-1][0];
+                intervals[i][1]=Math.max(intervals[i-1][1],intervals[i][1]);
+            }else{
+                list.add(intervals[i-1]);
+            }
+        }
+        list.add(intervals[intervals.length-1]);
+        return list.toArray(new int[0][0]);
+    }
+
     public static void printArray(int[][] arr){
         for (int i=0;i<arr.length;i++) {
             System.out.println(arr[i][0]+","+arr[i][1]);

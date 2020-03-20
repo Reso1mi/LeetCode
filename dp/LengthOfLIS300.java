@@ -85,32 +85,31 @@ public class LengthOfLIS300{
 
     //贪心+二分
     public static int lengthOfLIS(int[] nums) {
-        int[] tail = new int[nums.length];
+        int[] top = new int[nums.length];
         int len = 0;
         for (int num : nums) {
-            int index=binarySearch(tail,len,num);
-            tail[index] = num;
+            //寻找左侧最小的堆顶
+            int index=binarySearch(top,len,num);
             if (index == len) {
                 len++;
             }
+            top[index] = num;
         }
         return len;
     }
 
     //可以搜索
     private static int binarySearch(int[] nums, int len, int target) {
-        int l=0,r=len-1;
-        while(l<=r){
-            int mid=l+(r-l)/2;
-            if(target<nums[mid]){
-                r=mid-1;
-            }else if(target>nums[mid]){
-                l=mid+1;
-            }else{
-                return mid;
+        int left=0,right=len;
+        while(left<right){
+            int mid=left+(right-left)/2;
+            if(nums[mid]<target){
+                left=mid+1;
+            }else {
+                right=mid;
             }
         }
-        return l;
+        return left;
     }
 
         //[10,9,2,5,3,4]

@@ -44,7 +44,8 @@ public class PermuteUnique47{
         res.add(new ArrayList(lis));
         for (int i=0;i<nums.length;i++) {
             //剪枝去重
-            if (i>0&&nums[i]==nums[i-1] && visit[i-1]) 
+            //Bug警告，应该写!visit[i-1]
+            if (i>0&&nums[i]==nums[i-1] && !visit[i-1]) 
                 continue;
             if (!visit[i]) {
                 lis.add(nums[i]);

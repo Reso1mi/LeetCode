@@ -48,6 +48,21 @@ public class TrieByArray{
         add(cur.next[c-'a'],word,index+1); //尾递归
     }
 
+    public void addLoop(String word){
+        Node cur=root;
+        for (int i=0;i<word.length();i++) {
+            char c=word.charAt(i);
+            if(cur.next[c-'a']==null){
+                cur.next[c-'a']=new Node(); //node中不存数据
+            }
+            cur=cur.next[c-'a'];
+        }
+        if(!cur.isWord){
+            size++;
+            cur.isWord=true;
+        }
+    }
+
     //查询word是否在Trie中
     public boolean contains(String word){
         return contains(root,word,0);
@@ -67,7 +82,7 @@ public class TrieByArray{
         for (int i=0;i<word.length();i++) {
             Character c=word.charAt(i);
             if (cur.next[c-'a']==null) {
-                 return false;   
+                return false;   
             }
             cur=cur.next[c-'a'];
         }
@@ -84,7 +99,7 @@ public class TrieByArray{
             return true;
         }
         char c=perfix.charAt(index);
-        return cur.next[c-'a']!=null && hasPerfix(cur.next[c='a'],perfix,index+1);
+        return cur.next[c-'a']!=null && hasPerfix(cur.next[c-'a'],perfix,index+1);
     }
 
     //懒得写循环了。。。

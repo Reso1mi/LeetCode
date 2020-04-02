@@ -1,34 +1,25 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-
 public class RemoveOrderElements82 {
 
-	public static void main(String[] args) {
-		ListNode head=new ListNode(1);
-		ListNode node1=new ListNode(2);
-		ListNode node2=new ListNode(2);
-		ListNode node3=new ListNode(4);
-		ListNode node4=new ListNode(5);
-		ListNode node5=new ListNode(6);
-		ListNode node6=new ListNode(6);
-		head.next=node1;
-		node1.next=node2;
-		node2.next=node3;
-		node3.next=node4;
-		node4.next=node5;
-		node5.next=node6;
-		node6.next=null;
-		printList(head);
-		ListNode res=deleteDuplicates(head);
-		printList(res);
+    public static void main(String[] args) {
+        ListNode head=new ListNode(1);
+        ListNode node1=new ListNode(2);
+        ListNode node2=new ListNode(2);
+        ListNode node3=new ListNode(4);
+        ListNode node4=new ListNode(5);
+        ListNode node5=new ListNode(6);
+        ListNode node6=new ListNode(6);
+        head.next=node1;
+        node1.next=node2;
+        node2.next=node3;
+        node3.next=node4;
+        node4.next=node5;
+        node5.next=node6;
+        node6.next=null;
+        printList(head);
+        ListNode res=deleteDuplicates(head);
+        printList(res);
 
-	}
+    }
 
 
     public  static ListNode deleteDuplicates(ListNode head) {
@@ -51,7 +42,7 @@ public class RemoveOrderElements82 {
                     pre.next=next;
                     //cur跟上
                     cur=next;
-                   break;
+                    break;
                 }
             }
             //关键就是pre移动这里有坑
@@ -63,31 +54,30 @@ public class RemoveOrderElements82 {
     }
 
     //递归
-    public static ListNode removeElements2(ListNode head, int val){
-    	 if (head == null)
-    		 return null;
-    		//一直向后移动从头开始 , 如果==val就看return里面的 直接返回下一个作为头节点忽略==val的
- 			head.next = removeElements2(head.next, val);
- 		return head.val == val ? head.next : head;
-    }
-
-    public static void deleNode(ListNode cur,ListNode next){
-    	cur.val=next.val;
-    	cur.next=next.next;
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null || head.next==null) return head;
+        if(head.val==head.next.val){
+            while(head!=null && head.next!=null && head.val==head.next.val){
+                head=head.next;
+            }
+            return deleteDuplicates(head.next); //去重
+        }
+        head.next=deleteDuplicates(head.next);
+        return head;
     }
 
     public static void printList(ListNode l){
-		while(l!=null){
-			System.out.print(l.val+" , ");
-			l=l.next;
-		}
-		System.out.println();
-	}
+        while(l!=null){
+            System.out.print(l.val+" , ");
+            l=l.next;
+        }
+        System.out.println();
+    }
 }
 
 
 class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) { val = x; }
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
 }

@@ -117,7 +117,7 @@ public class MaxSumDivThree1262{
     }
 
     //好像不太好改喔
-    public int maxSumDivThree4(int[] nums) {
+/*    public int maxSumDivThree4(int[] nums) {
         int sum=0;
         int a=0,b=0,c=0,d=0;
         for (int n:nums) {
@@ -136,6 +136,39 @@ public class MaxSumDivThree1262{
         if (sum%3==2) { //移除一个余数为2 或者两个余数为1的
             return Math.max(sum-c,sum-a-b);
         }
+        return sum;
+    }*/
+
+
+    //改好了,O(N)贪心
+    public int maxSumDivThree(int[] nums) {
+        int M=0x3f3f3f3f;
+        //余1最小值
+        int min1_0=M,min1_1=M;
+        //余2最小值
+        int min2_0=M,min2_1=M;
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(nums[i]%3==1){
+                if(nums[i]<=min1_0){
+                    min1_1=min1_0;
+                    min1_0=nums[i];
+                }else if(nums[i]<=min1_1){
+                    min1_1=nums[i];
+                }
+            }
+            if(nums[i]%3==2){
+                if(nums[i]<=min2_0){
+                    min2_1=min2_0;
+                    min2_0=nums[i];
+                }else if(nums[i]<=min2_1){
+                    min2_1=nums[i];
+                }
+            }
+        }
+        if(sum%3==1) return sum-Math.min(min2_0+min2_1,min1_0);
+        if(sum%3==2) return sum-Math.min(min1_0+min1_1,min2_0);
         return sum;
     }
 

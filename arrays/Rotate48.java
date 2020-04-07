@@ -23,4 +23,25 @@ public class Rotate48{
             rx--;ry--;
         }
     }
+
+    //新解法
+    public void rotate(int[][] matrix) {
+        if(matrix==null || matrix.length<=0) return;
+        int N=matrix.length;
+        for(int i=0;i<N;i++){
+            for(int j=i+1;j<N;j++){
+                int temp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=temp;
+            }
+        }
+
+        for(int i=0;i<N;i++){
+            for(int j=0,k=N-1;j<k;j++,k--){
+                int temp=matrix[i][j];
+                matrix[i][j]=matrix[i][k];
+                matrix[i][k]=temp;
+            }
+        }
+    }
 }

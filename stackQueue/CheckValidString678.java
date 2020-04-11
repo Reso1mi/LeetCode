@@ -3,32 +3,31 @@ public class CheckValidString678{
 
     }
 
+    //2020.4.10重写一下
     public boolean checkValidString(String s) {
-        Stack<Integer> bracketStack=new Stack<>();
-        Stack<Integer> starStack=new Stack<>();
-        for (int i=0;i<s.length();i++) {
-            if (s.charAt(i)=='(') {
-                bracketStack.push(i);
-            }else if(s.charAt(i)=='*'){
-                starStack.push(i);
-            }else{
-                if (bracketStack.isEmpty()) {
-                    if (starStack.isEmpty()) {
+        Deque<Integer> stack=new ArrayDeque<>();
+        Deque<Integer> helpStack=new ArrayDeque<>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+                stack.push(i);
+            }else if(s.charAt(i)==')'){
+                if(!stack.isEmpty()){
+                    stack.pop();
+                }else{
+                    if(helpStack.isEmpty()){
                         return false;
                     }
-                    starStack.pop();
-                }else{
-                    bracketStack.pop();
+                    helpStack.pop();
                 }
+            }else{
+                helpStack.push(i);
             }
         }
-        //消除左括号
-        while(!starStack.isEmpty() && !bracketStack.isEmpty()){
-            if(starStack.peek()>bracketStack.peek()){
-                bracketStack.pop();
+        while(!stack.isEmpty() && !helpStack.isEmpty()){
+            if(stack.pop()>helpStack.pop()){
+                return false;
             }
-            starStack.pop();
         }
-        return bracketStack.isEmpty();
+        return stack.isEmpty();
     }
 }

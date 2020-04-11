@@ -91,4 +91,20 @@ public class Search33 {
         }
         return -1;
     }
+
+    public int search(int[] nums, int target) {
+        if(nums==null || nums.length<=0) return -1;
+        int left=0,right=nums.length-1;
+        while(left<right){
+            int mid=left+(right-left)/2;
+            int midNum=(nums[mid]>=nums[0])==(target>=nums[0])?nums[mid]:
+            nums[mid]>=nums[0]?Integer.MIN_VALUE:Integer.MAX_VALUE;
+            if(midNum<target){
+                left=mid+1;
+            }else{
+                right=mid;
+            }
+        }
+        return nums[left]!=target?-1:left;
+    }
 }

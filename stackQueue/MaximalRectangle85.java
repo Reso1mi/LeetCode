@@ -110,4 +110,38 @@ public class MaximalRectangle85{
             System.out.print(nums[i]+" ");
         }
     }
+
+    //update: 2020.4.12
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix==null || matrix.length<=0) return 0;
+        int M=matrix.length,N=matrix[0].length;
+        //每一层多加一个0,方便后面出栈
+        int[][] height=new int[M][N+1]; 
+        int res=0;
+        for(int i=0;i<M;i++){
+            for(int j=0;j<N;j++){
+                if(matrix[i][j]=='1'){
+                    height[i][j]=i-1>=0?height[i-1][j]+1:1;
+                }
+            }
+            res=Math.max(maxRectangle(height[i]),res);
+        }
+        return res;
+    }
+
+    public int maxRectangle(int[] height){
+        Deque<Integer> stack=new ArrayDeque<>();
+        int max=0;
+        for(int i=0;i<height.length;i++){
+            while(!stack.isEmpty() && height[i]<height[stack.peek()]){
+                int cur=stack.pop();
+                //栈为空的时候说明左边的全部是比当前栈顶大的元素,可以直接扩展到0,所以这里应该是-1
+                int left=stack.isEmpty()?-1:stack.peek();
+                //left+1 ~ i-1 = i-1-left
+                max=Math.max((i-1-left)*height[cur],max);
+            }
+            stack.push(i);
+        }
+        return max;
+    }
 }

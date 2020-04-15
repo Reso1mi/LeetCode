@@ -1,12 +1,5 @@
 public class MinWindow76{
     public static void main(String[] args) {
-        /*
-            "aaaaaaaaaaaabbbbbcdd"
-            "abcdd"
-
-            "ADOBECODEBANC"
-            "AC"
-         */
         String s="bbaa";
         String p="aba";
 
@@ -55,5 +48,48 @@ public class MinWindow76{
             }
         }
         return res[1]==Integer.MAX_VALUE?"":s.substring(res[0],res[1]);
+    }
+
+    //update: 2020.4.15
+    public String minWindow(String s, String t) {
+        if(s==null || t==null) return "";
+        int[] needMap=new int[128]; //需要的字符map
+        int[] curMap=new int[128];  //已经匹配的字符map
+        int needCount=0; //需要匹配的字符个数
+        for(int i=0;i<t.length();i++){
+            if(needMap[t.charAt(i)]==0){
+                needCount++;
+            }
+            needMap[t.charAt(i)]++;
+        }
+        int matchCount=0; //已经匹配的个数
+        int left=0,right=0;
+        int minLeft=0,maxRight=Integer.MAX_VALUE;
+        while(left<=right && right<s.length()){
+            char c=s.charAt(right);
+            if(needMap[c]!=0){
+                curMap[c]++;
+                if(curMap[c]==needMap[c]){
+                    matchCount++;
+                }
+            }
+            while(left<=right && right<s.length() && matchCount==needCount){
+                if(right-left<maxRight-minLeft){
+                    maxRight=right;
+                    minLeft=left;
+                }
+                char cl=s.charAt(left);
+                if(curMap[cl]!=0){
+                    curMap[cl]--;
+                    //这里注意，WA点
+                    if(curMap[cl]<needMap[cl]){
+                        matchCount--;
+                    }
+                }
+                left++;
+            }
+            right++;
+        }
+        return Integer.MAX_VALUE==maxRight?"":s.substring(minLeft,maxRight+1);
     }
 }

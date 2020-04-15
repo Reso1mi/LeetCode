@@ -12,7 +12,7 @@ public class UpdateMatrix542{
       ]
     */
     //遍历每一个1,BFS寻找离他最近的0,一次只能确定一个1,效率略低
-    public int[][] updateMatrix2(int[][] matrix) {
+      public int[][] updateMatrix2(int[][] matrix) {
         if (matrix == null || matrix.length <=0 || matrix[0].length <=0) {
             return new int[][]{};
         }
@@ -85,6 +85,52 @@ public class UpdateMatrix542{
     class Pair{
         int x;
         int y;
+        int step;
+        public Pair(int x,int y,int step){
+            this.x=x;
+            this.y=y;
+            this.step=step;
+        }
+    }
+
+    //update: 2020.4.15
+    private int[][] dir={{1,0},{0,1},{-1,0},{0,-1}};
+
+    public int[][] updateMatrix(int[][] matrix) {
+        if(matrix==null || matrix.length<=0) return matrix;
+        boolean[][] visit=new boolean[matrix.length][matrix[0].length];
+        Queue<Pair> queue=new LinkedList<>();
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if(matrix[i][j]==0){
+                    queue.add(new Pair(i,j,0));
+                    visit[i][j]=true;
+                }else{
+                    matrix[i][j]=Integer.MAX_VALUE;
+                }
+            }
+        }
+        while(!queue.isEmpty()){
+            Pair pair=queue.poll();
+            for(int i=0;i<dir.length;i++){
+                int nx=pair.x+dir[i][0];
+                int ny=pair.y+dir[i][1];
+                if(valid(matrix,nx,ny) && !visit[nx][ny]){
+                    queue.add(new Pair(nx,ny,pair.step+1));
+                    matrix[nx][ny]=pair.step+1;
+                    visit[nx][ny]=true;
+                }
+            }
+        }
+        return matrix;
+    }
+
+    public boolean valid(final int[][] matrix,int x,int y){
+        return x>=0 && x<matrix.length && y>=0 && y<matrix[0].length;
+    }
+
+    class Pair{
+        int x,y;
         int step;
         public Pair(int x,int y,int step){
             this.x=x;

@@ -54,6 +54,25 @@ public class Merge56{
         return list.toArray(new int[0][0]);
     }
 
+    //update: 2020.4.16
+    public int[][] merge(int[][] intervals) {
+        if(intervals==null || intervals.length<=0) return intervals;
+        Arrays.sort(intervals,(a,b)->a[0]!=b[0]?a[0]-b[0]:a[1]-b[1]);
+        List<int[]> res=new ArrayList<>();
+        res.add(intervals[0]);
+        for(int i=1;i<intervals.length;i++){
+            int[] pre=res.get(res.size()-1);
+            if(intervals[i][0]<=pre[1]){
+                if(intervals[i][1]>=pre[1]){
+                    pre[1]=intervals[i][1];
+                }
+            }else{
+                res.add(intervals[i]);
+            }
+        }
+        return res.toArray(new int[0][0]);
+    }
+
     public static void printArray(int[][] arr){
         for (int i=0;i<arr.length;i++) {
             System.out.println(arr[i][0]+","+arr[i][1]);

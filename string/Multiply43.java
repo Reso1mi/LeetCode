@@ -110,4 +110,68 @@ public class Multiply43{
         }
         return sb.toString();
     }
+
+    //update: 2020.4.16 在web上重新推了一遍
+    //idx : 0 1 2
+    //i :   4 5 6
+    //j :   1 2 3
+    //   ——————————
+    //    1 3 6 8 (i+j+1)
+    //    9 1 2
+    //  4 5 6
+    //  ——————————
+    //0 1 2 3 4 5
+    //0 5 6 0 8 8        
+    public String multiply(String num1, String num2) {
+        if(num1==null || num2==null) return num1;
+        int N=num1.length()+num2.length();
+        int[] res=new int[N];
+        for(int i=0;i<num1.length();i++){
+            for(int j=0;j<num2.length();j++){
+                res[i+j+1]+=(num1.charAt(i)-48)*(num2.charAt(j)-48);
+            }
+        }
+        //处理进位
+        for(int i=res.length-1;i>0;i--){
+            if(res[i]>=10){
+                res[i-1]+=res[i]/10;
+                res[i]%=10;
+            }
+        }
+        //前两个为0一定是0
+        //n*m位数 乘积应该是 (m+n-1 ~ m+n)位
+        if(res[0]==0 && res[1]==0) return "0";
+        //去除前导0
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<res.length;i++){
+            if(res[i]==0 && i==0)continue;
+            sb.append(res[i]);
+        }
+        return sb.toString();
+    }
+
+    public String multiply(String num1, String num2) {
+        if(num1==null || num2==null) return num1;
+        int n1=num1.length(),n2=num2.length();
+        int[] res=new int[n1+n2];
+        //如果想同时处理进位的话就必须倒推
+        for(int i=n1-1;i>=0;i--){
+            for(int j=n2-1;j>=0;j--){
+                int sum=res[i+j+1]+(num1.charAt(i)-48)*(num2.charAt(j)-48);
+                res[i+j+1]=sum%10;
+                //res[i+j]会超过10,但是由于我们是倒推的,所以这个会在下一轮进行处理,否则就无法处理了
+                res[i+j]+=sum/10; 
+            }
+        }   
+        //前两个为0一定是0
+        //n*m位数 乘积应该是 (m+n-1 ~ m+n)位
+        if(res[0]==0 && res[1]==0) return "0";
+        //去除前导0
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<res.length;i++){
+            if(res[i]==0 && i==0)continue;
+            sb.append(res[i]);
+        }
+        return sb.toString();
+    }
 }

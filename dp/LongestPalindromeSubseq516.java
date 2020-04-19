@@ -25,6 +25,30 @@ public class LongestPalindromeSubseq516{
         return dp[0][n-1];
     }
 
+    //update: 2020.4.19
+    //区间dp写法,更加套路化
+    public int longestPalindromeSubseq(String s) {
+        if(s==null || s.length()<=0) return 0;
+        int N=s.length();
+        int[][] dp=new int[N][N];
+        //base len=1
+        for(int i=0;i<N;i++){
+            dp[i][i]=1;
+        }
+        for(int len=2;len<=N;len++){
+            for(int i=0;i<=N-len;i++){
+                //j=i+len-1<N
+                int j=i+len-1;
+                if(s.charAt(i)==s.charAt(j)){
+                    dp[i][j]=dp[i+1][j-1]+2;
+                }else{
+                    dp[i][j]=Math.max(dp[i+1][j],dp[i][j-1]);
+                }
+            }
+        }
+        return dp[0][N-1];
+    }
+
     //递归解法,自底向上
     private Integer[][] cache=null;
     

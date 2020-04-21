@@ -1,4 +1,4 @@
-public class NumberOfSubstrings5323{
+public class NumberOfSubstrings1358{
     public static void main(String[] args) {
 
     }

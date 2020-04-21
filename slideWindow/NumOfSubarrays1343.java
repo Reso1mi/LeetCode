@@ -1,4 +1,4 @@
-public class NumOfSubarrays5312{
+public class NumOfSubarrays1343{
     public static void main(String[] args) {
 
     }

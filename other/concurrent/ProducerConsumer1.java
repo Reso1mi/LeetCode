@@ -1,11 +1,11 @@
 import java.util.*;
 import java.util.stream.*;
-/*
-多生产者消费者
-signal/await模型
- */
 
 public class ProducerConsumer1{
+    /*
+    多生产者消费者
+    signal/await模型
+    */
 
     //缓存区
     private static List<Integer> buffer=new ArrayList<>();

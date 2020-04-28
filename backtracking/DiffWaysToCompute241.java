@@ -49,3 +49,50 @@ public class DiffWaysToCompute241{
         return res;
     }
 }
+
+/* golang解法
+func diffWaysToCompute(input string) []int {
+    var res []int
+    if len(input)==0{
+        return res
+    }
+    flag:=true //用res的长度判断就可以了
+    for i:=0;i<len(input);i++{
+        if input[i] < '0' {
+            flag=false
+            left:=diffWaysToCompute(input[:i])
+            right:=diffWaysToCompute(input[i+1:])
+            for _,le:=range left{
+                for _,ri:=range right{
+                    if input[i]=='+'{
+                        res=append(res,le+ri)
+                    }
+                    if input[i]=='-'{
+                        res=append(res,le-ri)
+                    }
+                    if input[i]=='*'{
+                        res=append(res,le*ri)
+                    }
+                    if input[i]=='/'{
+                        res=append(res,le/ri)
+                    }
+                }
+            }
+        }
+    }
+    if flag{
+        res=append(res,string2int(input))
+    }
+    return res
+}
+
+func string2int(str string) int {
+    res := 0
+    temp := 1
+    for i := len(str) - 1; i >= 0; i-- {
+        res += int(str[i]-'0') * temp
+        temp *= 10
+    }
+    return res
+}
+ */

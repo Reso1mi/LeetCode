@@ -48,12 +48,14 @@ public class RemoveBoxes546{
         return dp[0][N-1];
     }
 
+
     public int removeBoxes(int[] boxes) {
         if (boxes==null || boxes.length<=0) {
             return 0;
         }
         int N=boxes.length;
-        int[][] dp=new int[N+1][N+1];
+        //消除i-j且后面有k个和j相连的相同的盒子的得分
+        int[][][] dp=new int[N+1][N+1][N+1];
         for (int i=0;i<=N;i++) {
             dp[i][i]=1;
         }

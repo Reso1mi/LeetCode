@@ -23,12 +23,15 @@ public class LastStoneWeightII1049{
     }
 
     //突然想通了，其实和前面的有一题有点像
-    //target=psum-nsum
-    //  sum =psum+nsum
-    //sum+target=2psum --> target=min(2psum-sum) = min(2psum) 
-    // = min(psum) && psum>=nsum 
-    // psum>=sum-nsum
-/*    public int lastStoneWeightII(int[] stones) {
+    //   sum   = psum + nsum
+    //  target = psum - nsum  (psum >= nsum)
+    //  sum+target = 2*psum
+    //  target = 2*psum-sum
+    //  2*psum-sum>=0
+    //  psum>=sum/2
+    //  sum-nsum >= sum/2
+    //  nsum <= sum/2
+    public int lastStoneWeightII(int[] stones) {
         if(stones==null ||stones.length<=0){
             return 0;
         }
@@ -37,10 +40,23 @@ public class LastStoneWeightII1049{
         for(int i=0;i<n;i++){
             sum+=stones[i];
         }
-        
+        //背包容量为sum/2,求最多能装多少,经典的01背包
+        int amount=sum/2;
+        int[] dp=new int[amount+1];
+        for (int i=0;i<stones.length;i++) {
+            for (int j=amount;j>=stones[i];j--) {
+                dp[j]=Math.max(dp[j],dp[j-stones[i]]+stones[i]);
+            }
+        }
+        //nsum=dp[amount]
+        //target=psum-nsum = sum-nusm-nsum
+        //wrong: return (amount-dp[amount])*2;
+        //return sum%2==0?(amount-dp[amount])*2:(amount-dp[amount])*2+1
+        return sum-2*dp[amount];
+    }
 
-    }*/
 
+    //记忆化递归
     Integer[][] dp=null;
 
     public int lastStoneWeightII(int[] stones) {

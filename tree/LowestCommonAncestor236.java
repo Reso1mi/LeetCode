@@ -24,30 +24,29 @@ public class LowestCommonAncestor236{
             return root;
         }
         Deque<TreeNode> stack=new ArrayDeque<>();
-        HashMap<TreeNode,TreeNode> map=new HashMap<>();
+        //题目说了值唯一，所以可以用Integer当键
+        HashMap<Integer,TreeNode> map=new HashMap<>();
+        map.put(root.val,null); //根节点
         stack.push(root);
         while(!stack.isEmpty()){
             TreeNode cur=stack.poll();
             if(cur.right!=null){
                 stack.push(cur.right);
-                map.put(cur.right,cur);
+                map.put(cur.right.val,cur);
             }
             if(cur.left!=null){
                 stack.push(cur.left);
-                map.put(cur.left,cur);
+                map.put(cur.left.val,cur);
             }
         }
         HashSet<Integer> set=new HashSet<>();
         while(p!=null){
             set.add(p.val);
-            p=map.get(p);
+            p=map.get(p.val);
         }
-        while(q!=null){
-            if(set.contains(q.val)){
-                return q;
-            }
-            q=map.get(q);
+        while(!set.contains(q.val)){
+            q=map.get(q.val);
         }
-        return null;
+        return q;
     }
 }

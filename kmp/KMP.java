@@ -5,6 +5,8 @@ public class KMP{
         System.out.println(k.kmp("a","a"));
         System.out.println(k.kmp("aaa","abadabac"));
         System.out.println(k.kmp("acac","acabacac"));
+        System.out.println(k.kmp("aaab","aaacaaab"));
+        System.out.println(k.kmp("abab","abababab"));
     }
 
     //判断t在s中的位置

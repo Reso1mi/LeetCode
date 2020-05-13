@@ -16,7 +16,6 @@ public class StrStr28{
                 }
             }else if(next[tidx]==-1){
                 //完全失配sidx需要后移
-                //只有tidx==0才会发生，所以设置-1其实是为了让sidx能单独移动
                 sidx++;
             }else{
                 tidx=next[tidx];

@@ -74,26 +74,49 @@ public class BalancedString1234{
     }
 
     //update: 2020.4.15 和上面的第一种差不多，自己重写的改了一点
+    //update: 2020.5.16 这个解法的返回有问题
+    // public int balancedString(String s) {
+    //     if(s==null || s.length()<=0) return -1;
+    //     int N=s.length();
+    //     int res=N,avg=N/4;
+    //     int[] freq=new int[26];
+    //     for(int i=0;i<s.length();i++){
+    //         freq[s.charAt(i)-'A']++;
+    //     }
+    //     int left=0,right=0;
+    //     while(right<s.length()){
+    //         //窗口右边界扩张，freq--
+    //         freq[s.charAt(right)-'A']--;
+    //         while(left<=right && freq['Q'-'A']<=avg && freq['W'-'A']<=avg && freq['E'-'A']<=avg && freq['R'-'A']<=avg){
+    //             res=Math.min(res,right-left+1);
+    //             //窗口左边界收缩，freq++
+    //             freq[s.charAt(left)-'A']++;
+    //             left++;
+    //         }
+    //         right++;
+    //     }
+    //     return left==right?0:res;
+    // }
+    
+    //正确解法
     public int balancedString(String s) {
-        if(s==null || s.length()<=0) return -1;
+        if(s==null || s.length()<=0){
+            return 0;
+        }
         int N=s.length();
-        int res=N,avg=N/4;
+        int left=0;
+        int res=N;
         int[] freq=new int[26];
-        for(int i=0;i<s.length();i++){
+        for(int i=0;i<N;i++) {
             freq[s.charAt(i)-'A']++;
         }
-        int left=0,right=0;
-        while(right<s.length()){
-            //窗口右边界扩张，freq--
+        for(int right=0;right<N;right++){
             freq[s.charAt(right)-'A']--;
-            while(left<=right && freq['Q'-'A']<=avg && freq['W'-'A']<=avg && freq['E'-'A']<=avg && freq['R'-'A']<=avg){
+            while(left<N && freq['Q'-'A']<=N/4 && freq['W'-'A']<=N/4 && freq['E'-'A']<=N/4 && freq['R'-'A']<=N/4){
                 res=Math.min(res,right-left+1);
-                //窗口左边界收缩，freq++
-                freq[s.charAt(left)-'A']++;
-                left++;
+                freq[s.charAt(left++)-'A']++;
             }
-            right++;
         }
-        return left==right?0:res;
+        return res;
     }
 }

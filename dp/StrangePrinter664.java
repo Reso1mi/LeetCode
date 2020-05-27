@@ -14,7 +14,7 @@ public class StrangePrinter664{
         //aab       2
         //aaba      2
         //aabab     3
-        //aababa    4
+        //aababa    3
         for (int len=2;len<=N;len++) {
             for (int left=0;left+len-1<N;left++) { //左端点
                 int right=left+len-1; //右端点

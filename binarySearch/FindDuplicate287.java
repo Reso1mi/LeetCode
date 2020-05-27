@@ -9,13 +9,12 @@ public class FindDuplicate287{
         //在过程中对mid检测每个数在nums数组中出现的次数
         //1 3 4 2 2实际上是对【1,2,3,4】区间进行二分
         while(left<right){
-            int mid=left+(right-left)/2;
-            int temp=count(nums,mid);
-            //排除中位数,小于mid的数<=mid,一定不是,说明重复元素一定在右边
-            if(temp<=mid){ //1 2 3 4
-                left=mid+1;
+            int mid=left+(right-left)/2+1;
+            //小于mid的数大于mid,排除mid
+            if(count(nums,mid)>=mid){ 
+                right=mid-1;
             }else{
-                right=mid;
+                left=mid;
             }
         }
         return left;
@@ -26,7 +25,7 @@ public class FindDuplicate287{
     public int count(int[] nums,int n){
         int res=0;
         for (int i=0;i<nums.length;i++) {
-            if (nums[i]<=n) {
+            if (nums[i]<n) {
                 res++;          
             }
         }

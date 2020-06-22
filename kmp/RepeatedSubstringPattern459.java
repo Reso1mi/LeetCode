@@ -57,7 +57,8 @@ public class RepeatedSubstringPattern459{
         if(s==null || s.length()<=1) return false;
         int[] next=getNext(s);
         int replen=s.length()-next[s.length()];
-        return s.length()%replen==0;
+        //循环结长度等于字符长度
+        return replen!=s.length() && s.length()%replen==0;
     }
 
     public int[] getNext(String s){
@@ -71,7 +72,7 @@ public class RepeatedSubstringPattern459{
         while(right<=s.length()){
             if(s.charAt(left)==s.charAt(right-1)){
                 next[right++]=++left;
-            }else if(left<=0){
+            }else if(next[left]==-1){
                 next[right++]=0;
             }else{
                 left=next[left];

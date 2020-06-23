@@ -11,14 +11,18 @@ func largestNumber(nums []int) string {
     }
     sort.Sort(StringSlice(strs))
     //return strings.Join(strs,"") 要去前导0...
-    var res = ""
-    var idx = 0
-    for idx < len(strs)-1 && strs[idx] == "0" {
-        idx++
-    }
-    for idx < len(strs) {
-        res += strs[idx]
-        idx++
+    // var res = ""
+    // var idx = 0
+    // for idx < len(strs)-1 && strs[idx] == "0" {
+    //     idx++
+    // }
+    // for idx < len(strs) {
+    //     res += strs[idx]
+    //     idx++
+    // }
+    res := strings.Join(strs, "")
+    if res[0] == '0' { //第一个为0肯定就全部是0了...前面的写法明显没动脑子
+        return "0"
     }
     return res
 }

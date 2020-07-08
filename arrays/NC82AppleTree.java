@@ -31,6 +31,7 @@ public class NC82AppleTree {
             while(p < a.length && a[p] < sb){
                 //该果树果子不够了，拿取剩下所有的
                 res[i] += (a[p] - (sb - b[i]));
+                //下一颗果树
                 p++;
             }
             //后面的都够

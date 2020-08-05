@@ -30,7 +30,7 @@ func smallestRange(nums [][]int) []int {
             }
         }
         for count == n && left <= right {
-            if (right-left < res[1]-res[0]) || (right-left == res[1]-res[0] && left < res[0]) {
+            if right-left < res[1]-res[0] {
                 res[0] = left
                 res[1] = right
             }

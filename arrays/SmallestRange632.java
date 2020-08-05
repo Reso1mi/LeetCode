@@ -7,6 +7,7 @@ public class SmallestRange632{
         }
     }
     
+    //k组链表，平均m个元素，时间复杂度 O(kmlog(k))
     public int[] smallestRange(List<List<Integer>> nums) {
         PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> nums.get(a.i).get(a.j)-nums.get(b.i).get(b.j));
         int INF = (int) 1e5+1;
@@ -18,7 +19,8 @@ public class SmallestRange632{
         int [] res = {-INF, INF};
         while (true) {
             Node cur = pq.poll();
-            if (less(nums.get(cur.i).get(cur.j), max, res[0], res[1])) {
+            //应该把val也存进去的，懒得改了
+            if (max-nums.get(cur.i).get(cur.j) < res[1]-res[0]) {
                 res[0] = nums.get(cur.i).get(cur.j);
                 res[1] = max;
             }
@@ -29,9 +31,5 @@ public class SmallestRange632{
             max = Math.max(max, nums.get(cur.i).get(cur.j+1));
         }
         return res;
-    }
-
-    public boolean less(int a, int b, int c, int d){
-        return (b-a < d-c) || (b-a == d-c && a < c);
     }
 }

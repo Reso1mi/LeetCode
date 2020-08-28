@@ -1,3 +1,4 @@
+func maxWidthRamp(A []int) int {
     var order [][]int
     order = append(order, []int{0, A[0]})
     //构建递减序列

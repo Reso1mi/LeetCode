@@ -1,5 +1,7 @@
 # LeetCode
-> 菜鸡刷题记录，下面的博文是我做题的一些题解，欢迎各位大佬来纠错，我的 [LeetCode主页](https://leetcode-cn.com/u/resolmi/)
+> 菜鸡刷题记录，下面的博文是我做题的一些题解，欢迎各位大佬来纠错
+
+一下内容可能并不完全，更多题解可以查看我的 [个人博客](http://imlgw.top)
 
 #### [链表](http://imlgw.top/2019/02/27/leetcode-lian-biao/)
 

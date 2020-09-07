@@ -36,6 +36,31 @@ public class TopKFrequent347{
         }
     }
 
+    //优雅的解法
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer,Integer> freq = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            freq.put(nums[i], freq.getOrDefault(nums[i], 0)+1);
+        }
+        //int[0]: count int[1]: val 
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b)->a[0]-b[0]);
+        //freq.forEach();
+        for (int key : freq.keySet()) {
+            pq.offer(new int[]{freq.get(key), key});
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        int[] res = new int[k];
+        int i = 0;
+        while (!pq.isEmpty()) {
+            res[i++] = pq.poll()[1];
+        }
+        return res;
+    }
+
+
+    //很就之前瞎写的，不优雅，笔试不太可能写出来
     public static List<Integer> topKFrequent2(int[] nums, int k) {
         if(nums==null||nums.length<=0){
             return null;

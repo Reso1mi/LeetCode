@@ -1,17 +1,14 @@
+import java.util.*;
 import java.io.*;// petr的输入模板
-import java.util.*; 
 import java.math.*; // 不是大数题可以不要这个
-public class StringTokenizerInput{
-    
-    //输出用这个
+
+public class Solve_HDOJ_4501 {
+
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         InputReader in = new InputReader(System.in);
-        //本地测试的时候文件读入方式
-        //InputReader in = new InputReader(new FileInputStream("./input.txt")); // 如果是文件读入这里就不是System.in而是File了
-        int n = in.nextInt();
-        int m = in.nextInt();
+        //InputReader in = new InputReader(new FileInputStream("./input.txt"));
         while(!in.EOF()) {
             int n = in.nextInt();
             int v1 = in.nextInt();
@@ -25,8 +22,40 @@ public class StringTokenizerInput{
             }
             solve(n, v1, v2, k, cost);
         }
+        //别忘了flush
+        out.flush();
+        out.close();
+    }
+
+    //因为数据量不大，就直接Scanner了
+    public static void solve(int n, int v1, int v2, int k, int[][] cost) {
+        int[][][] dp = new int[k+1][v1+1][v2+1];
+        for (int i = 0; i < n; i++) {
+            for (int j = k; j >= 0; j--) {
+                for (int u = v1; u >= 0; u--) {
+                    for (int w = v2; w >= 0; w--) {
+                        //这里不能直接u>=cost[i][0] w >= cost[i][1]，因为积分和钱和免费拿是分开的，没有关联的
+                        //即使我不能免费拿，但是我能用积分拿，即使不能用积分拿，我可以用钱买
+                        //dp[j][u][w] = Math.max(dp[j][u][w], dp[j-1][u-cost[i][0]][w-cost[i][1]] + cost[i][2]);
+                        int ans = 0;
+                        if (j >= 1) { //免费拿
+                            ans = Math.max(ans, dp[j-1][u][w] + cost[i][2]);
+                        }
+                        if (u >= cost[i][0]) { //钱
+                            ans = Math.max(ans, dp[j][u-cost[i][0]][w] + cost[i][2]);
+                        }
+                        if (w >= cost[i][1]) { //积分
+                            ans = Math.max(ans, dp[j][u][w-cost[i][1]] + cost[i][2]);
+                        }
+                        dp[j][u][w] = Math.max(ans, dp[j][u][w]);
+                    }
+                }
+            }
+        }
+        out.println(dp[k][v1][v2]);
     }
 }
+
 
 class InputReader {
 

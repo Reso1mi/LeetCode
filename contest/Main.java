@@ -1,144 +1,120 @@
-public class Main{
-	
-	public static void main(String[] args) {
-		//int []nums={};
-		//String text="thestoryofleetcodeandme";
-		String text="baabaaaaaa";
-		String[] words={"b","a","ba","bb","aa"};
-		/*
-		"baabaaaaaa"
-		["b","a","ba","bb","aa"]
-		 */
-		//System.out.println(text.substring(0,1));
-		//String[] words={"story","fleet","leetcode"};
-		//workers = [[0,0],[1,1],[2,0]], bikes = [[1,0],[2,2],[2,1]]
-		/*
-		[[815,60],[638,626],[6,44],[103,90],[591,880]]
-		[[709,161],[341,339],[755,955],[172,27],[433,489]]
+import java.io.*;// petr的输入模板
+import java.util.*; 
+import java.math.*; // 不是大数题可以不要这个
 
-		[[239,904],[191,103],[260,117],[86,78],[747,62]]
-		[[660,8],[431,772],[78,576],[894,481],[451,730],[155,28]]
+//笔试专用
+public class Main {
 
-		 */
-		
-		int [][]workers={{239,904},{191,103},{260,117},{86,78},{747,62}};
-		int [][]bikes={{660,8},{431,772},{78,576},{894,481},{451,730},{155,28}};
-		System.out.println(assignBikes(workers,bikes));
+    public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
-	}
-
-
-	public static int fixedPoint(int[] A) {
-		if(A.length<=0){
-			return -1;
-		}
-        for (int i=0;i<A.length;i++) {
-        	if(A[i]==i){
-        		return i;
-        	}
+    public static void main(String[] args) throws Exception {
+        //write your code
+        InputReader in = new InputReader(System.in);
+        //InputReader in = new InputReader(new FileInputStream("./input.txt"));
+        while(!in.EOF()) {
+            int n = in.nextInt();
+            int k = in.nextInt();
         }
-        return -1;
+        out.println(res);
+        //别忘了flush
+        out.flush();
+        out.close();
     }
 
 
-    public static int[][] indexPairs(String text, String[] words) {
-    		if(words==null||words.length<=0||text==null){
-    			return null;
-    		}
-    		int [][]res=new int[10000][2];
-    		int index=0;
-    		text+="0";
-     	   	for (int i=0;i<text.length();i++) {
-     	   		for (int j=i;j<text.length();j++) {
-     	   			//System.out.println(i+","+j);
-     	   			if(isInWords(text.substring(i,j),words)){
-     	   				res[index][0]=i;
-     	   				res[index][1]=j-1;
-     	   				index++;
-     	   				//System.out.println(i+","+(j-1));
-     	   			}
-     	   		}
-     	   }
-     	   int [][]r=new int[index][2];
-     	   for (int i=0;i<r.length;i++) {
-     	   		r[i][0]=res[i][0];
-     	   		r[i][1]=res[i][1];
-     	   }
-     	   return r;
-    }
-
-    public static boolean isInWords(String str,String []words){
-    	for (int i=0;i<words.length;i++) {
-    		if(str.equals(words[i])){
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-
-    public static int assignBikes2(int[][] workers, int[][] bikes) {
-    	int res=0;
-        for (int i=0;i<workers.length;i++) {
-        	int min=Integer.MAX_VALUE,temp=0;
-        	for (int j=0;j<bikes.length;j++) {
-        		if(bikes[j][0]==-1){
-        			continue;
-        		}
-        		int man=manhadun(bikes[j][0],workers[i][0],bikes[j][1],workers[i][1]);
-        		System.out.println(man+",");
-        		if(man>=min){
-        			continue;
-        		}else{
-        			min=man;
-        			temp=j;
-        		}
-        	}
-			bikes[temp][0]=-1;
-        	res+=min;
+    //随机正数
+    public static int[] generateRandomOpArray(int maxSize, int maxValue) {
+        int[] arr = new int[maxSize];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) (maxValue * Math.random()+1);
         }
-        return res;
+        return arr;
     }
 
-
-      public static int assignBikes(int[][] workers, int[][] bikes) {
-    	int res=0;
-        for (int i=0;i<bikes.length;i++) {
-        	
-        	int min=Integer.MAX_VALUE,temp=0;
-        	for (int j=0;j<workers.length;j++) {
-        		if(workers[j][0]==-1){
-        			continue;
-        		}
-        		int man=manhadun(bikes[i][0],workers[j][0],bikes[i][1],workers[j][1]);
-        		System.out.println(man+",");
-        		if(man>=min){
-        			continue;
-        		}else{
-        			min=man;
-        			temp=j;
-        		}
-        		//System.out.println("min:" +min);
-        	}
-			workers[temp][0]=-1;
-        	res+=min;
-        	if(i==workers.length-1){
-        		break;
-        	}
-        	//System.out.println(res);
+    // for test
+    public static void printArray(int[] arr) {
+        if (arr == null) {
+            return;
         }
-        return res;
-    }
-
-    public static int manhadun(int x1,int x2,int y1,int y2){
-    	return Math.abs(x1-x2) + Math.abs(y1-y2);
-    }
-
-    public static int digitsCount(int d, int low, int high) {
-    	int count=0;
-        for (int i=low;i<=high;i+=d) {
-        	String temp=String.valueOf(i);
-        	count+=temp.length()-temp.replace(String.valueOf(d),"").length();	
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
         }
-        return count;
+        System.out.println();
+    }
+
+    //C(5,2)
+    public static long C(int n, int k) {
+        long a = 1, b = 1;
+        //C(10,9)转换成C(10,1)
+        if (k > n/2) {
+            k = n-k;
+        }
+        for (int i = 1; i <= k; i++) {
+            a *= (n-i+1);
+            b *= i;
+        }
+        return a/b;
+    }
+}
+
+class InputReader {
+
+    public BufferedReader reader;
+    
+    public StringTokenizer tokenizer;
+
+    public InputReader(InputStream stream) {
+        //char[32768]
+        reader = new BufferedReader(new InputStreamReader(stream), 32768);
+        tokenizer = null;
+    }
+
+    //默认以" "作为分隔符，读一个
+    public String next() {
+        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+            try {
+                tokenizer = new StringTokenizer(reader.readLine());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return tokenizer.nextToken();
+    }
+
+    //有的题目不给有多少组测试用例，只能一直读，读到结尾，需要自己判断结束
+    //该函数也会读取一行，并初始化tokenizer，后序直接nextInt..等就可以读到该行
+    public boolean EOF() {
+        String str = null;
+        try {
+            str = reader.readLine();
+            if (str == null) {
+                return true;
+            }
+            //创建tokenizer
+            tokenizer = new StringTokenizer(str);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    int nextInt(){
+        return Integer.parseInt(next());
+    }
+    
+    long nextLong(){
+        return Long.parseLong(next());
+    }
+    
+    double nextDouble(){
+        return Double.parseDouble(next());
+    }
+    
+    BigInteger nextBigInteger(){
+        return new BigInteger(next());
+    }
+
+    BigDecimal nextBigDecimal(){
+        return new BigDecimal(next());
     }
 }

@@ -3,15 +3,11 @@ import java.util.*;
 import java.math.*; // 不是大数题可以不要这个
 public class StringTokenizerInput{
     
-    //输出用这个
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         InputReader in = new InputReader(System.in);
-        //本地测试的时候文件读入方式
-        //InputReader in = new InputReader(new FileInputStream("./input.txt")); // 如果是文件读入这里就不是System.in而是File了
-        int n = in.nextInt();
-        int m = in.nextInt();
+        //InputReader in = new InputReader(new FileInputStream("./input.txt"));
         while(!in.EOF()) {
             int n = in.nextInt();
             int v1 = in.nextInt();
@@ -25,6 +21,9 @@ public class StringTokenizerInput{
             }
             solve(n, v1, v2, k, cost);
         }
+        //别忘了flush
+        out.flush();
+        out.close();
     }
 }
 

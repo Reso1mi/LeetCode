@@ -2,12 +2,12 @@ import java.io.*;// petr的输入模板
 import java.util.*; 
 import java.math.*; // 不是大数题可以不要这个
 
-public class Main1 {
+public class TuYaMaxNumber {
 
     //没有OJ，暴力对拍小数据好像没啥问题
     public static void main(String[] args) throws Exception {
         for (int k = 0; k < 1000; k++) {
-            int N = 10000;
+            int N = 1000;
             int[] a = generateRandomOpArray(N,1000);
             int[] b = generateRandomOpArray(N,1000);
             int[][] nums = new int[2][N];

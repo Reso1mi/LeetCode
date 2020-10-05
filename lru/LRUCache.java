@@ -1,81 +1,71 @@
-import java.util.*;
-public class LRUCache {
-
-    class Node{
-        int key;
-        int value;
-        Node pre;
-        Node next;
-        public Node(int key,int value){
-            this.value=value;
-            this.key=key;
-        }
-    }
-
-    HashMap<Integer,Node> map=new HashMap<>();
-
-    Node head=null;
-
-    Node tail=null;
-
-    int capacity=0;
-
+class LRUCache {
+    
+    HashMap<Integer, Node> map = null;
+        
+    int capacity = 0;
+    
+    Node head = null;
+    
+    Node tail = null;
+    
     public LRUCache(int capacity) {
-        this.capacity=capacity;
+        this.capacity = capacity;
+        map = new HashMap<>();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
     }
     
     public int get(int key) {
-        if (map.containsKey(key)) {
-            Node node=map.get(key);
-            //移动到链表头
-            move2Head(node);
-            return node.value;
+        Node node = map.get(key);
+        if (node == null) {
+            return -1;
         }
-        return -1;
+        removeNode(node);
+        insert2head(node);
+        return node.val;
     }
     
     public void put(int key, int value) {
-        Node newHead=new Node(key,value);
-        if (map.containsKey(key)) {
-            Node node=map.get(key);
-            node.value=value;
-            //移动到链表头
-            move2Head(node);
-            return;
+        Node node = map.get(key);
+        if (node == null) {
+            node = new Node(key, value);
+            insert2head(node);
+            map.put(key, node);
+        } else {
+            removeNode(node);
+            node.val = value;
+            insert2head(node);
         }
-        if (map.size()==capacity) {
-            map.remove(tail.key);
-            removeNode(tail);
+        if (map.size() > capacity) {
+            map.remove(tail.prev.key);
+            removeNode(tail.prev);
         }
-        move2Head(newHead);
-        map.put(key,newHead);
     }
-
-    public void removeNode(Node node){
-        if (node.key==tail.key) {
-            tail=tail.pre;
-            return;
-        }
-        if (node.pre==null || node.next==null) {
-            return;
-        }
-        node.pre.next=node.next;
-        node.next.pre=node.pre;
+    
+    public void insert2head(Node node) {
+        node.next = head.next;
+        node.prev = head;
+        head.next.prev = node;
+        head.next = node;
     }
-
-    public void move2Head(Node newHead){
-        if (map.size()==0) {
-            head=tail=newHead;
-            return;
+    
+    //移除Node节点
+    public void removeNode(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node.next = null;
+        node.prev = null;
+    }
+    
+    class Node {
+        Node prev, next;
+        int key, val;
+        public Node (int key, int val) {
+            this.key = key;
+            this.val = val;
         }
-        if (newHead.key==head.key) {
-            return;
-        }
-        removeNode(newHead);
-        newHead.next=head;
-        newHead.pre=null;
-        head.pre=newHead;
-        head=newHead;
     }
 }
 

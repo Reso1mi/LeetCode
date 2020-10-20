@@ -9,18 +9,39 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         //write your code
-        InputReader in = new InputReader(System.in);
-        //InputReader in = new InputReader(new FileInputStream("./input.txt"));
+        //InputReader in = new InputReader(System.in);
+        InputReader in = new InputReader(new FileInputStream("./input.txt"));
         while(!in.EOF()) {
-            int n = in.nextInt();
+            /*int n = in.nextInt();
             int k = in.nextInt();
+            out.println(dfs(n, k, new Integer[n+1][k+1]));*/
+            int target = in.nextInt();
+            int n = in.nextInt();
+            for (int i = 0; i < n; i++) {
+                
+            }
+            //别忘了flush
         }
-        out.println(res);
-        //别忘了flush
         out.flush();
         out.close();
     }
+    
+    //private static int res = 0;
 
+    //5 -> 5 , 1 4 , 2 3
+    public static int dfs(int n, int k, Integer[][] dp) {
+        if (dp[n][k] != null) {
+            return dp[n][k];
+        }
+        if (k == 0) {
+            return dp[n][k] = 0;
+        }
+        int res = 1;
+        for (int i = 1; i <= n/2; i++) {
+            res += dfs(n-i, k-1, dp);
+        }
+        return dp[n][k] = res;
+    }
 
     //随机正数
     public static int[] generateRandomOpArray(int maxSize, int maxValue) {

@@ -86,6 +86,29 @@ public class NumberOfSets1621 {
         return (int)(dp[n][k][0] + dp[n][k][1] + MOD) % MOD;
     }
     
+    //友好点的递推N^3 + 优化N^2
+    public int numberOfSets(int n, int k) {
+        int MOD = (int)1e9+7;
+        long[][] dp = new long[n+1][k+1];
+        long[][] sum = new long[n+1][k+1];
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = 1;
+            sum[i][0] = sum[i-1][0] + 1; 
+        }
+        for (int i = 2; i <= n; i++) {
+            for (int j = 1; j <= Math.min(i-1, k); j++) {
+                //j不覆盖右端点i的情况
+                dp[i][j] = dp[i-1][j];
+                //枚举j覆盖区间右端点的所有情况，注意从1开始
+                // for (int s = 1; s < i; s++) {
+                //     dp[i][j] = (dp[i][j] + dp[s][j-1]) % MOD;
+                // }
+                dp[i][j] = (dp[i][j] + sum[i-1][j-1]) % MOD;
+                sum[i][j] = sum[i-1][j] + dp[i][j];
+            }
+        }
+        return (int) dp[n][k];
+    }
 
     //写个暴搜试试（T了）
     int MOD = (int)1e9+7;

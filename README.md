@@ -25,8 +25,12 @@
 
 #### [贪心](http://imlgw.top/2020/01/21/leetcode-tan-xin/)
 
+#### [单调栈](http://imlgw.top/2020/08/28/leetcode-dan-diao-zhan/)
+
+#### [位运算](http://imlgw.top/2020/07/03/leetcode-wei-yun-suan/)
+
 #### [字典树初探](http://imlgw.top/2019/12/17/zi-dian-shu/)
 
 #### [线段树初探](http://imlgw.top/2019/12/09/xian-duan-shu/) 
 
-#### [并查集初探](http://imlgw.top/2020/02/02/bing-cha-ji/) 
+#### [并查集初探](http://imlgw.top/2020/02/02/bing-cha-ji/)

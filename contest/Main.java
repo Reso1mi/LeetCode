@@ -2,7 +2,7 @@ import java.io.*;// petr的输入模板
 import java.util.*; 
 import java.math.*; // 不是大数题可以不要这个
 
-//笔试专用
+
 public class Main {
 
     public static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
